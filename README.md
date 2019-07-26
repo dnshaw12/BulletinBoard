@@ -5,32 +5,32 @@ App where users and organizations had create free events. Users can also browse 
 ### Member user story
 1. Create account/Login
 2. Option to browse existing events
-&nbsp;* *Can filter by type (v2)* 
-&nbsp;* Can mark themselves as attending
+&nbsp; * *Can filter by type (v2)* 
+&nbsp; * Can mark themselves as attending
 3. Can create their own events
-&nbsp;* *Private or public (v2)*
+&nbsp; * *Private or public (v2)*
 4. Can request access to Orgs
 5. Can remove themselves from Orgs
 6. Requests Management
-&nbsp;* Event Attendees
-&nbsp;* Can see list of requests and accept or reject them
+&nbsp; * Event Attendees
+&nbsp; * Can see list of requests and accept or reject them
 
 ### Org user story
 1. Created by Member
 2. Option to add other Members to Org (admin or general member)
 3. Can created Org events (if admin)
-&nbsp;* Public, members only, or invite only events
+&nbsp; * Public, members only, or invite only events
 4. Can access attendees list
-&nbsp;* Can remove attendee
+&nbsp; * Can remove attendee
 5. Requests Management
-&nbsp;* Event Attendees
-&nbsp;* Can see list of requests and accept or reject them
-&nbsp;* Org Member 
-&nbsp;* Can see list of requests and accept or reject them
+&nbsp; * Event Attendees
+&nbsp; * Can see list of requests and accept or reject them
+&nbsp; * Org Member 
+&nbsp; * Can see list of requests and accept or reject them
 6. Org Edit
-&nbsp;* Can update details of Org
-&nbsp;* Can remove or add members
-&nbsp;* Can promote members to admin
+&nbsp; * Can update details of Org
+&nbsp; * Can remove or add members
+&nbsp; * Can promote members to admin
 
 ## Model Layout
 
@@ -39,7 +39,7 @@ App where users and organizations had create free events. Users can also browse 
 2. profilePic: img file (multer)
 3. Description: text
 4. Requests: Array
-&nbsp;* OrgRequest.ObjectId
+&nbsp; * OrgRequest.ObjectId
 
 
 ## Member
@@ -61,7 +61,7 @@ App where users and organizations had create free events. Users can also browse 
 5. endDateTime: Date 
 6. eventPic: img file (multer)
 7. Requests: Array
-&nbsp;* AttendRequest.ObjectId
+&nbsp; * AttendRequest.ObjectId
 8. Description: text
 9. *private: Boolean (v2)*
 10. membersOnly: Boolean
