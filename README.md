@@ -5,10 +5,10 @@ App where users and organizations had create free events. Users can also browse 
 ### Member user story
 1. Create account/Login
 2. Option to browse existing events
-* // Can filter by type 
+* *Can filter by type (v2)* 
 * Can mark themselves as attending
 3. Can create their own events
-* // Private or public
+* *Private or public (v2)*
 4. Can request access to Orgs
 5. Can remove themselves from Orgs
 6. Requests Management
