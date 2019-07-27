@@ -14,14 +14,11 @@ const eventSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Member'
 	},
-	dateTimeOfEvent: {
+	beginDateTime: {
 		type: Date,
 		required: true
 	},
-	endDateTime: {
-		type: Date,
-		required: true
-	},
+	endDateTime:Date,
 	requests: Array,
 	description: {
 		type: String,

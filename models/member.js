@@ -5,7 +5,7 @@ const memberSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	fastName: String,
+	lastName: String,
 	email: {
 		type: String,
 		unique: true,
