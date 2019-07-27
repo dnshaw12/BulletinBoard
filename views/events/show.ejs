@@ -29,5 +29,16 @@
 	<h3>Description:</h3></br>
 	<p><%=event.description%></p>
 
+		<% if (session.logged) { %>
+
+		<% if (event.memberHost._id.toString() === session.userId) {%>
+			ATTENDANCE LIST
+		<% }  else { %>
+			<form action="/">
+			    <input type="submit" value="Attend"/>
+			</form>
+		<% } %>
+	<% } %>
+
 </body>
 </html>
