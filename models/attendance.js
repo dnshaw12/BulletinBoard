@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const attendanceSchema = new mongoose.Schema({
-	member: [{
+	member: {
 		type: mongoose.Schema.Types.ObjectId,
     	ref: 'Member'
-	}],
-	event: [{
+	},
+	event: {
 		type: mongoose.Schema.Types.ObjectId,
     	ref: 'Event'
-	}]
+	}
 })
 
 module.exports = mongoose.model('Attendance', attendanceSchema)

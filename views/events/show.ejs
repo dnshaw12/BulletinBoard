@@ -32,7 +32,15 @@
 		<% if (session.logged) { %>
 
 		<% if (event.memberHost._id.toString() === session.userId) {%>
-			ATTENDANCE LIST
+			ATTENDEES LIST: <%=attendees.length%><br>
+			<ol>
+				<% attendees.forEach( attendee => {%>
+					<li><%=attendee.member.firstName + " " + attendee.member.lastName%></li>
+				<% }) %>
+			</ol>
+
+
+
 		<% }  else if (!attendance.length) { %>
 			<form action="/events/<%=event._id%>/attend" method="POST">
 			    <input type="submit" value="Attend"/>

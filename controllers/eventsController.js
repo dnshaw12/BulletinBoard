@@ -45,6 +45,7 @@ router.post('/', async (req, res, next) => {
 	try {
 		const memberHost = await Member.findOne({ _id: req.body.host })
 
+
 		if (memberHost) {
 			console.log(memberHost,'memberHost');
 			req.body.memberHost = req.body.host
@@ -70,6 +71,13 @@ router.post('/', async (req, res, next) => {
 
 		const newEvent = await Event.create(req.body);
 
+		const attendance = await Attendance.create({
+		 	member: req.session.userId,
+		 	event: newEvent._id
+		})
+
+		console.log(attendance);
+
 		req.session.message = `${req.body.name} has been created!`
 
 		console.log(newEvent);
@@ -88,14 +96,24 @@ router.get('/:id', async (req, res, next) => {
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
+		const attendees = await Attendance.find({event: req.params.id}).populate('member');
+
+		// const attendees = await attendances.map( a => {
+			// console.log(a.member);
+			// Member.findById(a.member)
+		// })
+
 		// console.log(event);
 		// console.log(req.session);
-		console.log(attendance,'attendance');
+		// console.log(attendances,'attendance');
+
+		console.log(attendees);
 
 		res.render('events/show.ejs', {
 			event: event,
 			session: req.session,
-			attendance: attendance
+			attendance: attendance,
+			attendees: attendees
 		})
 		
 	} catch(err){
