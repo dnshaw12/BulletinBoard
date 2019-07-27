@@ -4,6 +4,7 @@ const methodOverride	= require('method-override');
 const session      		= require('express-session');
 const app         		= express();
 const PORT 				= 3000;
+const Event  = require('./models/event');
 
 require('./db/db');
 
@@ -22,11 +23,19 @@ app.use(methodOverride('_method'));
 app.use('/members', membersController)
 app.use('/events', eventsController)
 
-app.get('/', (req, res, next) => {
+app.get('/', async (req, res, next) => {
 
-	res.render('index.ejs', {
-      		session: req.session
-      	})
+	try {
+		const events = await Event.find({}).populate('memberHost')
+		
+		res.render('index.ejs', {
+			events: events,
+	  		session: req.session
+	  	})
+	} catch(err){
+	  next(err);
+	}
+
 })
 
 app.listen(PORT, () => {

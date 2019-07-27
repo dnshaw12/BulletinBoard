@@ -80,6 +80,21 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
+router.get('/:id', async (req, res, next) => {
+	
+	try {
+		const event = await Event.findById(req.params.id).populate('memberHost')
+		console.log(event);
+
+		res.render('events/show.ejs', {
+			event: event
+		})
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
 
 
 

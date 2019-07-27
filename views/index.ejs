@@ -20,5 +20,22 @@
 		<a href="/members/new">Sign Up</a><br/>
 	<% } %>
 
+	<div id="event-list">
+		
+		<% events.forEach( event => {%>
+			<a href="/events/<%=event._id%>">
+				<div id="event-info">
+					<%=event.name%>
+					<%=event.description%>
+					<%=event.memberHost.name%>
+					
+				</div>
+			</a>
+
+		<% }) %>
+
+
+	</div>
+
 </body>
 </html>
