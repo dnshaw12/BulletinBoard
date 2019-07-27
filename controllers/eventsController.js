@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Member  = require('../models/member');
 const Event  = require('../models/event');
+const Attendance  = require('../models/attendance');
 const bcrypt  = require('bcryptjs');
 
 router.get('/create', async (req, res, next) => {
@@ -95,6 +96,23 @@ router.get('/:id', async (req, res, next) => {
 	} catch(err){
 	  next(err);
 	}
+})
+
+router.post('/:id/attend', async (req, res, next) => {
+	
+	try {
+		const attendance = await Attendance.create({
+		 	member: req.session.userId,
+		 	event: req.params.id
+		})
+
+		console.log(attendance);
+
+	} catch(err){
+	  next(err);
+	}
+
+
 })
 
 

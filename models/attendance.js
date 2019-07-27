@@ -10,3 +10,5 @@ const attendanceSchema = new mongoose.Schema({
     	ref: 'Event'
 	}]
 })
+
+module.exports = mongoose.model('Attendance', attendanceSchema)

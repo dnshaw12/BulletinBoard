@@ -34,7 +34,7 @@
 		<% if (event.memberHost._id.toString() === session.userId) {%>
 			ATTENDANCE LIST
 		<% }  else { %>
-			<form action="/">
+			<form action="/events/<%=event._id%>/attend" method="POST">
 			    <input type="submit" value="Attend"/>
 			</form>
 		<% } %>
