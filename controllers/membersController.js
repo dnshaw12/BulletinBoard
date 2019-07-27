@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Member  = require('../models/member');
+const Event  = require('../models/event');
 const bcrypt  = require('bcryptjs');
 
 router.post('/', async (req, res, next) => {
@@ -63,6 +64,18 @@ router.post('/login', async (req, res, next) => {
 	} catch(err){
 	  next(err);
 	}
+})
+
+router.get('/logout', async (req, res, next) => {
+
+	try {
+		await req.session.destroy()
+
+		res.redirect('/')
+	} catch(err){
+	  next(err);
+	}
+
 })
 
 

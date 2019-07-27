@@ -8,6 +8,7 @@ const PORT 				= 3000;
 require('./db/db');
 
 const membersController = require('./controllers/membersController')
+const eventsController = require('./controllers/eventsController')
 
 app.use(session({
   secret: 'THIS IS A RANDOM SECRET STRING',
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 
 app.use('/members', membersController)
+app.use('/events', eventsController)
 
 app.get('/', (req, res, next) => {
 
