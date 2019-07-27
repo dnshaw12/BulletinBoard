@@ -1,13 +1,24 @@
 const mongoose = require('mongoose');
 
 const memberSchema = new mongoose.Schema({
-	FirstName: String,
-	LastName: String,
-	Email: String,
+	firstName: {
+		type: String,
+		required: true
+	},
+	fastName: String,
+	email: {
+		type: String,
+		unique: true,
+		required: true
+	},
+	password: {
+		type: String,
+		required: true
+	},
 	aboutMe: String,
-	// profilePic: img file (multer)
+	// profilePic: File,
 	signUpDate: Date,
-	Location: {
+	location: {
 		addr1: String, 
 		addr2: String, 
 		city: String, 
@@ -15,7 +26,7 @@ const memberSchema = new mongoose.Schema({
 		zip: String
 
 	},
-	Birthday: Date
+	birthday: Date
 })
 
 module.exports = mongoose.model('Member', memberSchema);
