@@ -21,6 +21,7 @@ router.post('/', async (req, res, next) => {
 
 		req.session.userId = newMember._id;
       	req.session.firstName = newMember.firstName;
+      	req.session.message = `Thanks for joining us, ${req.session.firstName}!`
       	req.session.logged = true;
 
       	console.log(req.session);
@@ -32,7 +33,37 @@ router.post('/', async (req, res, next) => {
 	// console.log(req.body);
 })
 
+router.post('/login', async (req, res, next) => {
+	
+	try {
+		
+		const foundMember = await Member.findOne({email: req.body.email});
+		console.log(foundMember,'foundMember');
 
+		if (foundMember) {
+			if (bcrypt.compareSync(req.body.password, foundMember.password)) {
+				req.session.userId = foundMember._id;
+		      	req.session.firstName = foundMember.firstName;
+		      	req.session.message = `Welcome back, ${req.session.firstName}!`;
+		      	req.session.logged = true;
+
+		      	res.redirect('/');
+
+			} else {
+				req.session.message = 'Username or Password is incorrect'
+
+      			res.redirect('/')
+			}
+		} else {
+			req.session.message = 'Username or Password is incorrect'
+
+      		res.redirect('/')
+		}
+
+	} catch(err){
+	  next(err);
+	}
+})
 
 
 router.get('/new', (req, res, next) => {

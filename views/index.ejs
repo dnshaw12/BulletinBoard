@@ -6,10 +6,16 @@
 <body>
 	<h1>Bulletin Board</h1>
 	<% if (session.logged){%>
-		<h3>Hi, <%=session.firstName%></h3>
+		<h3><%=session.message%></h3>
 		<a href="/events/create">Create a new Event</a>
 	<% } else { %>
-		<a href="/members/new">Sign Up</a>
+		<span id="message-area"><%=session.message%></span>
+		<form action="/members/login" method="POST">
+			Email: <input type="email" name="email">
+			Password: <input type="password" name="password">
+			<button>Login</button>
+		</form>
+		<a href="/members/new">Sign Up</a><br/>
 	<% } %>
 
 </body>
