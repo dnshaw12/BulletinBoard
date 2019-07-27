@@ -18,6 +18,13 @@ router.post('/', async (req, res, next) => {
 	try {
 		const newMember = await Member.create(req.body)
 		console.log(newMember, 'newMember');
+
+		req.session.userId = newMember._id;
+      	req.session.firstName = newMember.firstName;
+      	req.session.logged = true;
+
+      	console.log(req.session);
+      	res.redirect('/')
 	} catch(err){
 	  next(err);
 	}

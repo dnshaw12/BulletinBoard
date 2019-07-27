@@ -5,7 +5,12 @@
 </head>
 <body>
 	<h1>Bulletin Board</h1>
-	<a href="/members/new">Sign Up</a>
+	<% if (session.logged){%>
+		<h3>Hi, <%=session.firstName%></h3>
+		<a href="/events/create">Create a new Event</a>
+	<% } else { %>
+		<a href="/members/new">Sign Up</a>
+	<% } %>
 
 </body>
 </html>
