@@ -4,6 +4,10 @@
 	<title></title>
 </head>
 <body>
+	<a href="/">Home</a>
+	<% if (event.memberHost._id.toString() === session.userId) {%>
+		<a href="/events/<%=event._id%>/edit">Edit</a>
+	<% } %>
 	<h1><%=event.name%></h1>
 	<p>Hosted by <% if (event.memberHost) {%>
 		<%=event.memberHost.name%>
