@@ -41,10 +41,15 @@
 
 
 
-		<% }  else if (!attendance.length) { %>
+		<% }  else if (!attendance.length && event.attendeeMax === null) { %>
 			<form action="/events/<%=event._id%>/attend" method="POST">
 			    <input type="submit" value="Attend"/>
 			</form>
+		<% } else if (!attendance.length && event.attendeeMax !== null) { %>
+				<%= event.attendeeMax - attendees.length%> spot(s) left!
+				<form action="/events/<%=event._id%>/request" method="POST">
+				    <input type="submit" value="Request Attendance"/>
+				</form>
 		<% } else { %>
 			You are signed up for this event!
 		<% } %>
