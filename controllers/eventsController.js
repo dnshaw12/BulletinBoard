@@ -85,12 +85,17 @@ router.get('/:id', async (req, res, next) => {
 	
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost')
-		console.log(event);
-		console.log(req.session);
+
+		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
+
+		// console.log(event);
+		// console.log(req.session);
+		console.log(attendance,'attendance');
 
 		res.render('events/show.ejs', {
 			event: event,
-			session: req.session
+			session: req.session,
+			attendance: attendance
 		})
 		
 	} catch(err){
@@ -107,6 +112,8 @@ router.post('/:id/attend', async (req, res, next) => {
 		})
 
 		console.log(attendance);
+
+		res.redirect('/events/' + req.params.id)
 
 	} catch(err){
 	  next(err);

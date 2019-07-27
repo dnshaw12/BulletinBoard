@@ -33,10 +33,12 @@
 
 		<% if (event.memberHost._id.toString() === session.userId) {%>
 			ATTENDANCE LIST
-		<% }  else { %>
+		<% }  else if (!attendance.length) { %>
 			<form action="/events/<%=event._id%>/attend" method="POST">
 			    <input type="submit" value="Attend"/>
 			</form>
+		<% } else { %>
+			You are signed up for this event!
 		<% } %>
 	<% } %>
 
