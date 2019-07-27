@@ -61,6 +61,10 @@ router.post('/', async (req, res, next) => {
 			req.body.membersOnly = false
 		}
 
+		if (req.body.attendeeMax) {
+			req.body.attendeeMax = parseInt(req.body.attendeeMax)
+		}
+
 		console.log(req.body);
 
 		const newEvent = await Event.create(req.body);
