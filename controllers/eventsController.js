@@ -93,7 +93,16 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 	
 	try {
-		const event = await Event.findById(req.params.id).populate('memberHost')
+		const event = await Event.findById(req.params.id).populate('memberHost').populate('requests.member')
+
+		// await event.populate({
+		// 	path: 'requests',
+		// 	populate: {
+		// 		path: 'member',
+		// 		model: 'Member'
+		// 	}
+		// })
+		console.log(event,'----------- event');
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
@@ -189,6 +198,36 @@ router.delete('/:id/remove', async (req, res, next) => {
 	  next(err);
 	}
 
+})
+
+router.delete('/:id/reject', async (req, res, next) => {
+	console.log('reject');
+	try {
+		const event = await Event.findById(req.params.id)
+
+
+		console.log(event,"<----event");
+
+		const rIndex = await event.requests.findIndex( r => {
+			console.log(r.member.toString() === req.body.memberId);
+			return r.member.toString() === req.body.memberId
+		})
+		console.log(rIndex);
+		event.requests.splice(rIndex,1)
+
+		event.save()
+
+		res.redirect('/events/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
+
+})
+
+router.post('/:id/accept', (req, res, next) => {
+	
 })
 
 
