@@ -36,7 +36,13 @@
 			ATTENDEES LIST: <%=attendees.length%><br>
 			<ol>
 				<% attendees.forEach( attendee => {%>
-					<li><%=attendee.member.firstName + " " + attendee.member.lastName%></li>
+					<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
+						<li>
+							<input type="hidden" name="memberId" value="<%=attendee.member._id%>">
+							<%=attendee.member.firstName + " " + attendee.member.lastName%>
+							<button>Remove</button>
+						</li>
+					</form>
 				<% }) %>
 			</ol>
 

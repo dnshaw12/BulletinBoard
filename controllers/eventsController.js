@@ -174,6 +174,23 @@ router.post('/:id/request', async (req, res, next) => {
 
 })
 
+router.delete('/:id/remove', async (req, res, next) => {
+	console.log(req.body, 'delete reqbody');
+
+	try {
+		const removedAttendance = await Attendance.findOneAndDelete({member: req.body.memberId, event: req.params.id})
+
+		console.log(removedAttendance);
+
+		res.redirect('/events/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
+
+})
+
 
 
 
