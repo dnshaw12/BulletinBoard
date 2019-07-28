@@ -47,20 +47,20 @@
 			</ol>
 
 		PENDING REQUESTS: </br>
-		<ol>
-			<% event.requests.forEach( r => {%>
-					<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
-						<li>
-							<input type="hidden" name="memberId" value="<%=r.member._id%>">
-							<%=r.member.firstName + " " + r.member.lastName%>
-							<p><%=r.message%></p>
-							<button formaction="/events/<%=event._id%>/accept">Accept</button>
-							<button>Reject</button>
+			<ol>
+				<% event.requests.forEach( r => { %>
+						<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
+							<li>
+								<input type="hidden" name="memberId" value="<%=r.member._id%>">
+								<%=r.member.firstName + " " + r.member.lastName%>
+								<p><%=r.message%></p>
+								<button formaction="/events/<%=event._id%>/accept">Accept</button>
+								<button>Reject</button>
 
-						</li>
-					</form>
-				<% }) %>
-		</ol>
+							</li>
+						</form>
+					<% }) %>
+			</ol>
 
 
 
@@ -90,6 +90,12 @@
 			Your request is pending!
 		<% } else { %>
 			You are signed up for this event!
+
+			<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
+					<input type="hidden" name="memberId" value="<%=session.userId%>">
+					<button>Unattend</button>
+			</form>
+
 		<% } %>
 	<% } %>
 	<script type="text/javascript" src="/js/app.js"></script>

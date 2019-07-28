@@ -93,7 +93,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 	
 	try {
-		const event = await Event.findById(req.params.id).populate('memberHost').populate('requests.member')
+		const event = await Event.findById(req.params.id).populate('memberHost')//.populate('requests.member')
 
 		// await event.populate({
 		// 	path: 'requests',
@@ -108,10 +108,12 @@ router.get('/:id', async (req, res, next) => {
 
 		const attendees = await Attendance.find({event: req.params.id}).populate('member');
 
-		console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
-		console.log(req.session.userId);
+		// console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
+		// console.log(req.session.userId);
 
 		// console.log(attendees);
+
+		console.log(event.requests);
 
 		res.render('events/show.ejs', {
 			event: event,
