@@ -226,8 +226,37 @@ router.delete('/:id/reject', async (req, res, next) => {
 
 })
 
-router.post('/:id/accept', (req, res, next) => {
+router.post('/:id/accept', async (req, res, next) => {
 	
+	try {
+
+		await Attendance.create({
+			member: req.body.memberId,
+			event: req.params.id
+		})
+		
+
+		const event = await Event.findById(req.params.id)
+
+
+		console.log(event,"<----event");
+
+		const rIndex = await event.requests.findIndex( r => {
+			console.log(r.member.toString() === req.body.memberId);
+			return r.member.toString() === req.body.memberId
+		})
+		console.log(rIndex);
+		event.requests.splice(rIndex,1)
+
+		event.save()
+
+		res.redirect('/events/'+req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+
+
 })
 
 
