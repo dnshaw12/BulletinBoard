@@ -3,6 +3,7 @@ const router  = express.Router();
 const Member  = require('../models/member');
 const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
+const Request  = require('../models/request');
 const bcrypt  = require('bcryptjs');
 
 router.get('/create', async (req, res, next) => {
@@ -98,16 +99,10 @@ router.get('/:id', async (req, res, next) => {
 
 		const attendees = await Attendance.find({event: req.params.id}).populate('member');
 
-		// const attendees = await attendances.map( a => {
-			// console.log(a.member);
-			// Member.findById(a.member)
-		// })
+		console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
+		console.log(req.session.userId);
 
-		// console.log(event);
-		// console.log(req.session);
-		// console.log(attendances,'attendance');
-
-		console.log(attendees);
+		// console.log(attendees);
 
 		res.render('events/show.ejs', {
 			event: event,
@@ -130,6 +125,45 @@ router.post('/:id/attend', async (req, res, next) => {
 		})
 
 		console.log(attendance);
+
+		res.redirect('/events/' + req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+
+
+})
+
+router.get('/:id/request', async (req, res, next) => {
+	try {
+		const event = await Event.findById(req.params.id);
+
+		res.render('events/request.ejs', {
+			event: event
+		})
+
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.post('/:id/request', async (req, res, next) => {
+
+	req.body.member = req.session.userId
+	
+	try {
+		const event = await Event.findById(req.params.id)
+		const newRequest = await Request.create(req.body)
+
+		console.log(newRequest);
+
+		event.requests.push(newRequest)
+
+		await event.save()
+
+		console.log(event.requests, 'event requests');
 
 		res.redirect('/events/' + req.params.id)
 

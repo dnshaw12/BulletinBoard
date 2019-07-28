@@ -19,7 +19,7 @@ const eventSchema = new mongoose.Schema({
 		required: true
 	},
 	endDateTime:Date,
-	requests: Array,
+	requests: [],
 	description: {
 		type: String,
 		required: true

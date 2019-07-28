@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1><%=event.name%></h1>
+	<h2>Leave a message for the host!</h2>
+	<form action="/events/<%=event._id%>/request" method="POST">
+		<textarea name="message"></textarea>
+		<button>Submit Request</button>
+	</form>
+
+</body>
+</html>

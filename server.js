@@ -11,6 +11,8 @@ require('./db/db');
 const membersController = require('./controllers/membersController')
 const eventsController = require('./controllers/eventsController')
 
+app.use(express.static('public'))
+
 app.use(session({
   secret: 'THIS IS A RANDOM SECRET STRING',
   resave: false,
