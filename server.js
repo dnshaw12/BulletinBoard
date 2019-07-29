@@ -11,6 +11,7 @@ require('./db/db');
 
 const membersController = require('./controllers/membersController')
 const eventsController = require('./controllers/eventsController')
+const groupsController = require('./controllers/groupsController')
 
 app.use(express.static('public'))
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 
 app.use('/members', membersController)
 app.use('/events', eventsController)
+app.use('/groups', groupsController)
 
 app.get('/', async (req, res, next) => {
 
