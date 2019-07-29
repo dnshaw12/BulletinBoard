@@ -4,6 +4,7 @@ const Group  = require('../models/group');
 const Member  = require('../models/member');
 const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
+const Membership  = require('../models/membership');
 const Request  = require('../models/request');
 const bcrypt  = require('bcryptjs');
 
@@ -47,7 +48,10 @@ router.post('/', async (req, res, next) => {
 
 		const createdGroup = await Group.create(req.body);
 
-		console.log(createdGroup);
+		const newMembership = await Membership.create({member: req.body.userId, group: createdGroup._id, admin: true})
+
+		console.log(createdGroup, 'new group');
+		console.log(newMembership, 'newMembership');
 
 		res.redirect('/groups')
 

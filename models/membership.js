@@ -9,7 +9,11 @@ const membershipSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
     	ref: 'GRoup'
 	},
-	createdDate: {
+	admin: {
+		type: Boolean,
+		default: false
+	},
+	dateOfMembership: {
 		type: Date,
 		default: Date.now
 	}
