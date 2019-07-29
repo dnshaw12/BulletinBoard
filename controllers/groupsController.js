@@ -72,6 +72,35 @@ router.post('/', async (req, res, next) => {
 	}
 })
 
+router.get('/:id', async (req, res, next) => {
+	try {
+		
+		const group = await Group.findById(req.params.id)
+
+		const adminMember = await Membership.findOne({member: req.session.userId, group: req.params.id, admin: true})
+
+		console.log(adminMember, 'adminMember');
+
+		let admin
+
+		if (adminMember === null) {
+			amind = false
+		} else {
+			admin = true
+		}
+
+		console.log(admin, 'admin');
+
+		res.render('groups/show.ejs',{
+			group: group,
+			admin: admin,
+			session: req.session
+		})
+
+	} catch(err){
+	  next(err);
+	}
+})
 
 
 
