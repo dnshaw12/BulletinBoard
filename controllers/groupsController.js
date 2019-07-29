@@ -12,10 +12,12 @@ router.get('/', async (req, res, next) => {
 	try {
 
 		const groups = await Group.find({private: false})
+		const events = await Event.find({})
 
 		
 		res.render('groups/index.ejs',{
 			groups: groups,
+			events: events,
 			session: req.session
 		})
 	} catch(err){

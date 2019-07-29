@@ -8,6 +8,16 @@
 
 		<li><a href="/groups/<%=group._id%>"><%=group.name%></a></li>
 
+			<ol>
+				<% events.forEach( event => { 
+					if (events.groupHost === group._id) { %>
+
+					<li><a href="/events/<%=event._id%>"><%=event.name%></a></li>
+
+				<% }}) %>
+
+			</ol>
+
 		<% }) %>
 
 	</ul>
