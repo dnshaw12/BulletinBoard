@@ -13,7 +13,7 @@ const eventSchema = new mongoose.Schema({
 	},
 	groupHost: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Member'
+		ref: 'Group'
 	},
 	beginDateTime: {
 		type: Date,

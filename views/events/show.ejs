@@ -1,12 +1,31 @@
 <% include ../partials/header.ejs%>
 
 
-	<% if (event.memberHost._id.toString() === session.userId) {%>
+
+
+	<% if (!host) { %>
+
+		<% if (event.memberHost) { %>
+			
+			<% if (event.memberHost._id.toString() === session.userId) {%>
+				<a href="/events/<%=event._id%>/edit">Edit</a>
+			<% } %>
+			
+		<% } %>
+	<% } else { %>
+
 		<a href="/events/<%=event._id%>/edit">Edit</a>
+
 	<% } %>
+
+
+
+
 	<h1><%=event.name%></h1>
-	<p>Hosted by <% if (event.memberHost) {%>
-		<%=event.memberHost.name%>
+	<p>Hosted by <% if (event.memberHost !== null) {%>
+			<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
+		<% } else { %>
+			<%=event.groupHost.name%>
 		<% } %>
 	</p>
 
@@ -25,48 +44,20 @@
 	<h3>Description:</h3></br>
 	<p><%=event.description%></p>
 
-		<% if (session.logged) { %>
+	<% if (session.logged) { %>
 
-		<% if (event.memberHost._id.toString() === session.userId) {%>
-			ATTENDEES LIST: <%=attendees.length%><br>
-			<ol>
-				<% attendees.forEach( attendee => {%>
-					<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
-						<li>
-							<input type="hidden" name="memberId" value="<%=attendee.member._id%>">
-							<%=attendee.member.firstName + " " + attendee.member.lastName%>
-							<% if (attendee.member._id.toString() === session.userId) { %>
-								(me)
-							<% } else { %>
-								<button>Remove</button>
-							<% } %>
-						</li>
-					</form>
-				<% }) %>
-			</ol>
+		<% if (host) { %>
 
-		PENDING REQUESTS: </br>
-			<ol>
-				<% event.requests.forEach( r => { %>
-						<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
-							<li>
-								<input type="hidden" name="memberId" value="<%=r.member._id%>">
-								<%=r.member.firstName + " " + r.member.lastName%>
-								<p><%=r.message%></p>
-								<button formaction="/events/<%=event._id%>/accept">Accept</button>
-								<button>Reject</button>
-
-							</li>
-						</form>
-					<% }) %>
-			</ol>
+				
+			<% include ../partials/attendeeRequestLists.ejs%>
 
 
+		<% } else if (!attendance.length && event.attendeeMax === null) { %>
 
-		<% }  else if (!attendance.length && event.attendeeMax === null) { %>
 			<form action="/events/<%=event._id%>/attend" method="POST">
 			    <input type="submit" value="Attend"/>
 			</form>
+
 		<% } else if (!attendance.length && 
 
 						event.attendeeMax !== null &&
@@ -79,6 +70,7 @@
 				<form action="/events/<%=event._id%>/request">
 					<button id="request-button">Request Attendance</button>
 				</form>
+
 		<% } else if (!attendance.length && 
 
 						event.attendeeMax !== null &&

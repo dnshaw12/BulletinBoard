@@ -51,7 +51,9 @@ app.use('/groups', groupsController)
 app.get('/', async (req, res, next) => {
 
 	try {
-		const events = await Event.find({}).populate('memberHost')
+		const events = await Event.find({}).populate('groupHost').populate('memberHost')
+
+		console.log(events);
 
 		res.render('index.ejs', {
 			events: events,

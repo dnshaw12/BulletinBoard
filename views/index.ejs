@@ -7,7 +7,15 @@
 				<div id="event-info">
 					<%=event.name%>
 					<%=event.description%>
-					<%=event.memberHost.name%>
+					<% if (event.memberHost) { %>
+						
+						<%=event.memberHost.name%>
+
+					<% } else { %>
+
+						<%=event.groupHost.name%>
+						
+					<% } %>
 					
 				</div>
 			</a>

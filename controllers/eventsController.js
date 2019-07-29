@@ -46,6 +46,7 @@ router.post('/', async (req, res, next) => {
 	req.body.location.zip = req.body.zip
 	req.body.requests = []
 
+	console.log("\n here is req.body");
 	console.log(req.body);
 
 	try {
@@ -55,7 +56,11 @@ router.post('/', async (req, res, next) => {
 		if (memberHost) {
 			console.log(memberHost,'memberHost');
 			req.body.memberHost = req.body.host
-		} // else {} if org
+			req.body.groupHost = null
+		} else {
+			req.body.memberHost = null
+			req.body.groupHost = req.body.host
+		}
 
 		if (req.body.hasAlcohol === 'on') {
 			req.body.hasAlcohol = true
@@ -86,6 +91,8 @@ router.post('/', async (req, res, next) => {
 
 		req.session.message = `${req.body.name} has been created!`
 
+
+		console.log("\nwe created  this")
 		console.log(newEvent);
 
 		res.redirect('/')
@@ -98,9 +105,24 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 	
 	try {
-		const event = await Event.findById(req.params.id).populate('memberHost').populate('requests.member')
+		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost').populate('requests.member')
 
-		console.log(event,'----------- event');
+		console.log(event, '========EVENT');
+
+		let host
+
+		if (event.groupHost !== null) {
+			console.log('group');
+			host = await Membership.find({member: req.session.userId, group: event.groupHost._id, admin: true})
+
+			if (host.length === 0) {
+				host = false
+			}
+		} else if (event.memberHost._id.toString() === req.session.userId) {
+			host = true
+		} else {
+			host = false
+		}
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
@@ -111,10 +133,11 @@ router.get('/:id', async (req, res, next) => {
 
 		// console.log(attendees);
 
-		console.log(event.requests);
+		console.log(attendance,'attendance');
 
 		res.render('events/show.ejs', {
 			event: event,
+			host: host,
 			session: req.session,
 			attendance: attendance,
 			attendees: attendees

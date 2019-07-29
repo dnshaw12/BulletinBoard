@@ -12,7 +12,7 @@
 			<% if (session.logged){%>
 				<div>
 					<h3><%=session.message%></h3>
-					<a href="members/logout">Logout</a>
+					<a href="/members/logout">Logout</a>
 				</div>
 			<% } else { %>
 				<span id="message-area"><%=session.message%></span>
