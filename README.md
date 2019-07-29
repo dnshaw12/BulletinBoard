@@ -1,5 +1,5 @@
 # BulletinBoard
-App where users and organizations had create free events. Users can also browse and mark themselves as attending an event.
+App where users and groups had create free events. Users can also browse and mark themselves as attending an event.
 
 
 ### Member user story
@@ -15,9 +15,9 @@ App where users and organizations had create free events. Users can also browse 
 * Event Attendees
 * Can see list of requests and accept or reject them
 
-### Org user story
+### Group user story
 1. Created by Member
-2. Option to add other Members to Org (admin or general member)
+2. Option to add other Members to group (admin or general member)
 3. Can created Org events (if admin)
 * Public, members only, or invite only events
 4. Can access attendees list
@@ -25,21 +25,21 @@ App where users and organizations had create free events. Users can also browse 
 5. Requests Management
 * Event Attendees
 * Can see list of requests and accept or reject them
-* Org Member 
+* group Member 
 * Can see list of requests and accept or reject them
-6. Org Edit
+6. group Edit
 * Can update details of Org
 * Can remove or add members
 * Can promote members to admin
 
 ## Model Layout
 
-### Org
+### group
 1. Name: String
 2. profilePic: img file (multer)
 3. Description: text
 4. Requests: Array
-* OrgRequest.ObjectId
+* Request.ObjectId
 
 
 ## Member
@@ -78,7 +78,7 @@ App where users and organizations had create free events. Users can also browse 
 1. Member: Member.ObjectId
 2. Admin: Boolean
 3. Date of Membership: Date
-4. Org: Org.ObjectId
+4. group: group.ObjectId
 
 ## Attendance
 1. Member: Member.ObjectId

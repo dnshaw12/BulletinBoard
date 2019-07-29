@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Request  = require('../models/request');
 
-const organizationSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true
@@ -22,4 +22,4 @@ const organizationSchema = new mongoose.Schema({
 	}
 })
 
-module.exports = mongoose.model('Organization', organizationSchema)
+module.exports = mongoose.model('Group', groupSchema)
