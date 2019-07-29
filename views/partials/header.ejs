@@ -28,7 +28,10 @@
 		</div>
 		<nav>
 			<a href="/">Home</a>
-			<a href="/events/create">Create a new Event</a><br/>
+			<% if (session.logged){%>
+				<a href="/events/create">Create a new Event</a>
+				<a href="/groups/create">Create a new Group</a>
+			<% } %>
 		</nav>
 		
 	</header>

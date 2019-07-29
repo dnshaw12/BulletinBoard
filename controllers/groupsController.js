@@ -26,6 +26,14 @@ router.get('/', async (req, res, next) => {
 
 })
 
+router.get('/create', (req, res, next) => {
+	
+	res.render('groups/new.ejs',{
+		session: req.session
+	})
+
+})
+
 
 
 

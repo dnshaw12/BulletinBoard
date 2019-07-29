@@ -80,7 +80,9 @@ router.get('/logout', async (req, res, next) => {
 
 
 router.get('/new', (req, res, next) => {
-	res.render('members/new.ejs')
+	res.render('members/new.ejs',{
+		session: req.session
+		})
 })
 
 

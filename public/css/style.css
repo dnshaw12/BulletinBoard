@@ -7,6 +7,16 @@ header, footer {
 	color: white;
 }
 
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+nav > a {
+	color: white;
+}
+
 header {
 	display: flex;
 	flex-direction: column;
