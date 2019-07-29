@@ -7,6 +7,13 @@
 		Host: 
 			<select name="host">
 				<option value="<%=member._id%>"><%=member.firstName+" "+member.lastName%></option>
+
+				<% groups.forEach( group => {%>
+
+					<option value="<%=group._id%>"><%=group.name%></option>	
+
+				<% }) %>
+
 			</select><br/>
 		Date & Time: <input type="datetime-local" name="beginDateTime"><br/>
 		End Time: <input type="datetime-local" name="endDateTime"><br/>

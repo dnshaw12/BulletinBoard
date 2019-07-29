@@ -3,6 +3,7 @@ const router  = express.Router();
 const Member  = require('../models/member');
 const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
+const Membership  = require('../models/membership');
 const Request  = require('../models/request');
 const bcrypt  = require('bcryptjs');
 
@@ -12,11 +13,15 @@ router.get('/create', async (req, res, next) => {
 		try {
 
 			const currentMember = await Member.findOne({_id: req.session.userId})
+			const memberships = await Membership.find({member: req.session.userId, admin: true}).populate('group')
+			const groups = memberships.map( m => m.group )
 
+			console.log(groups, '======= members groups');
 			console.log(currentMember);
 			
 			res.render('events/new.ejs', {
 				member: currentMember,
+				groups: groups,
 				session: req.session
 			})
 		} catch(err){
