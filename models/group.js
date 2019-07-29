@@ -12,6 +12,7 @@ const groupSchema = new mongoose.Schema({
 		required: true
 	},
 	requests: [Request.schema],
+	private: Boolean,
 	creator: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Member'

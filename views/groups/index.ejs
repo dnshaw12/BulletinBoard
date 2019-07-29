@@ -1,0 +1,22 @@
+<% include ../partials/header.ejs %>
+
+	<h1>Group List</h1>
+
+	<ul>
+		
+		<% groups.forEach( group => { %>
+
+		<li><a href="/groups/<%=group._id%>"><%=group.name%></a></li>
+
+		<% }) %>
+
+	</ul>
+
+
+
+
+
+
+
+
+<% include ../partials/footer.ejs %>
