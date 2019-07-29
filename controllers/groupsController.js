@@ -9,10 +9,22 @@ const Request  = require('../models/request');
 const bcrypt  = require('bcryptjs');
 
 router.get('/', async (req, res, next) => {
-
+	console.log('group page');
 	try {
 
-		const groups = await Group.find({private: false})
+		const publicGroups = await Group.find({private: false})
+		// console.log(await Membership.find({}));
+		const memberships = await Membership.find({member: req.session.userId})
+			.populate('group')
+
+		const privateMemberships = await memberships.filter( m => m.group.private === true)
+
+		const privateGroups = await privateMemberships.map( m => m.group )
+
+		const groups = publicGroups.concat(privateGroups)
+
+
+		console.log(privateGroups, '------ private groups');
 		const events = await Event.find({})
 
 		
@@ -48,7 +60,7 @@ router.post('/', async (req, res, next) => {
 
 		const createdGroup = await Group.create(req.body);
 
-		const newMembership = await Membership.create({member: req.body.userId, group: createdGroup._id, admin: true})
+		const newMembership = await Membership.create({member: req.session.userId, group: createdGroup._id, admin: true})
 
 		console.log(createdGroup, 'new group');
 		console.log(newMembership, 'newMembership');

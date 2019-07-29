@@ -7,7 +7,7 @@ const membershipSchema = new mongoose.Schema({
 	},
 	group: {
 		type: mongoose.Schema.Types.ObjectId,
-    	ref: 'GRoup'
+    	ref: 'Group'
 	},
 	admin: {
 		type: Boolean,
