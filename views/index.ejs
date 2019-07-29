@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<h1>Bulletin Board</h1>
-	<% if (session.logged){%>
-		<h3><%=session.message%></h3>
-		<a href="/events/create">Create a new Event</a><br/>
-		<a href="members/logout">Logout</a>
-
-	<% } else { %>
-		<span id="message-area"><%=session.message%></span>
-		<form action="/members/login" method="POST">
-			Email: <input type="email" name="email">
-			Password: <input type="password" name="password">
-			<button>Login</button>
-		</form>
-		<a href="/members/new">Sign Up</a><br/>
-	<% } %>
+<% include ./partials/header.ejs %>
 
 	<div id="event-list">
 		
@@ -37,5 +17,4 @@
 
 	</div>
 
-</body>
-</html>
+<% include ./partials/footer.ejs %>

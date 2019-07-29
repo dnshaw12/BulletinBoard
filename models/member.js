@@ -26,7 +26,11 @@ const memberSchema = new mongoose.Schema({
 		zip: String
 
 	},
-	birthday: Date
+	birthday: Date,
+	createdDate: {
+		type: Date,
+		default: Date.now
+	}
 })
 
 module.exports = mongoose.model('Member', memberSchema);

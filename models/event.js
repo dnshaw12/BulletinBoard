@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Request  = require('../models/request');
 
 
 const eventSchema = new mongoose.Schema({
@@ -19,7 +20,7 @@ const eventSchema = new mongoose.Schema({
 		required: true
 	},
 	endDateTime:Date,
-	requests: [],
+	requests: [Request.schema],
 	description: {
 		type: String,
 		required: true
@@ -44,7 +45,11 @@ const eventSchema = new mongoose.Schema({
 			type: String,
 			required: true
 		},
-		hasAlcohol: Boolean
+		hasAlcohol: Boolean,
+		createdDate: {
+			type: Date,
+			default: Date.now
+		}
 	},
 })
 

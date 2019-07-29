@@ -1,0 +1,26 @@
+body {
+	background-image: url("images/cork.jpg");
+}
+
+header, footer {
+	background-color: rgb(13,55,13);
+	color: white;
+}
+
+header {
+	display: flex;
+	flex-direction: column;
+
+}
+
+header > div {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#event-info {
+	background-color: rgb(241, 241, 212);
+	margin-top: 10px;
+}

@@ -5,7 +5,11 @@ const requestSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
     	ref: 'Member'
 	},
-	message: String
+	message: String,
+	createdDate: {
+		type: Date,
+		default: Date.now
+	}
 })
 
 module.exports = mongoose.model('Request', requestSchema)

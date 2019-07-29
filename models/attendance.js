@@ -8,6 +8,10 @@ const attendanceSchema = new mongoose.Schema({
 	event: {
 		type: mongoose.Schema.Types.ObjectId,
     	ref: 'Event'
+	},
+	createdDate: {
+		type: Date,
+		default: Date.now
 	}
 })
 

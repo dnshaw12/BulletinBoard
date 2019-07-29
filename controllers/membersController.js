@@ -22,7 +22,7 @@ router.post('/', async (req, res, next) => {
 
 		req.session.userId = newMember._id;
       	req.session.firstName = newMember.firstName;
-      	req.session.message = `Thanks for joining us, ${req.session.firstName}!`
+      	req.session.message = `Thanks for joining us, ${newMember.firstName}!`
       	req.session.logged = true;
 
       	console.log(req.session);
@@ -45,7 +45,7 @@ router.post('/login', async (req, res, next) => {
 			if (bcrypt.compareSync(req.body.password, foundMember.password)) {
 				req.session.userId = foundMember._id;
 		      	req.session.firstName = foundMember.firstName;
-		      	req.session.message = `Welcome back, ${req.session.firstName}!`;
+		      	req.session.message = `Welcome back, ${foundMember.firstName}!`;
 		      	req.session.logged = true;
 
 		      	res.redirect('/');
