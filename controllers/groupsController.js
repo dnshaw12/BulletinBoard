@@ -34,7 +34,27 @@ router.get('/create', (req, res, next) => {
 
 })
 
+router.post('/', async (req, res, next) => {
+	try {
+		
+		if (req.body.private === 'on') {
+			req.body.private = true
+		} else {
+			req.body. private = false
+		}
 
+		req.body.creator = req.session.userId;
+
+		const createdGroup = await Group.create(req.body);
+
+		console.log(createdGroup);
+
+		res.redirect('/groups')
+
+	} catch(err){
+	  next(err);
+	}
+})
 
 
 
