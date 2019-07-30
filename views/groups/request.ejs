@@ -1,0 +1,11 @@
+<% include ../partials/header.ejs%>
+
+
+	<h1><%=group.name%></h1>
+	<h2>Leave a message for the group admin!</h2>
+	<form action="/Groups/<%=group._id%>/request" method="POST">
+		<textarea name="message"></textarea>
+		<button>Submit Request</button>
+	</form>
+
+<% include ../partials/footer.ejs%>

@@ -111,6 +111,46 @@ router.get('/:id', async (req, res, next) => {
 	}
 })
 
+router.get('/:id/request', async (req, res, next) => {
+	try {
+		const group = await Group.findById(req.params.id);
+
+		res.render('groups/request.ejs', {
+			group: group,
+			session: req.session
+		})
+
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.post('/:id/request', async (req, res, next) => {
+
+	req.body.member = req.session.userId
+	
+	try {
+		const group = await Group.findById(req.params.id)
+		const newRequest = await Request.create(req.body)
+
+		console.log(newRequest);
+
+		group.requests.push(newRequest)
+
+		await group.save()
+
+		console.log(group.requests, 'group requests');
+
+		res.redirect('/groups/' + req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+
+
+})
+
 
 
 

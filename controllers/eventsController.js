@@ -172,7 +172,8 @@ router.get('/:id/request', async (req, res, next) => {
 		const event = await Event.findById(req.params.id);
 
 		res.render('events/request.ejs', {
-			event: event
+			event: event,
+			session: req.session
 		})
 
 
