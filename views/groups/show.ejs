@@ -12,6 +12,40 @@
 
 		<p><%=group.description%></p>
 
+		<% if (session.logged) { %>
+
+			<% if (admin) { %>
+
+					
+				<% include ../partials/membershipRequestLists.ejs%>
+
+			<% } else if (!membership.length && 
+
+							group.requests.findIndex( r => r.member.toString() === session.userId) === -1
+
+							) { %>
+					<div id="request-div"></div>
+					<form action="/groups/<%=group._id%>/request">
+						<button id="request-button">Request Membership</button>
+					</form>
+
+			<% } else if (!membership.length && 
+
+							group.requests.findIndex( r => r.member.toString() === session.userId) >= 0
+
+							){ %>
+				Your request is pending!
+			<% } else { %>
+
+				<form action="/groups/<%=group._id%>/remove?_method=DELETE" method="POST">
+						<input type="hidden" name="memberId" value="<%=session.userId%>">
+						<button>Leave Group</button>
+				</form>
+
+			<% } %>
+		<% } %>
 	</div>
+
+	
 
 <% include ../partials/footer.ejs%>

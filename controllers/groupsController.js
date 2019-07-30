@@ -82,6 +82,10 @@ router.get('/:id', async (req, res, next) => {
 
 		const adminMember = await Membership.findOne({member: req.session.userId, group: req.params.id, admin: true})
 
+		const membership = await Membership.find({member: req.session.userId, group: req.params.id})
+
+		const members = await Membership.find({group: req.params.id}).populate('member');
+
 		console.log(adminMember, 'adminMember');
 
 		let admin
@@ -97,7 +101,9 @@ router.get('/:id', async (req, res, next) => {
 		res.render('groups/show.ejs',{
 			group: group,
 			admin: admin,
-			session: req.session
+			members: members,
+			session: req.session,
+			membership: membership
 		})
 
 	} catch(err){
