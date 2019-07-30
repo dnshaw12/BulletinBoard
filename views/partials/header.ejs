@@ -4,15 +4,19 @@
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 	<header>
 		<div>
-			<h1>Bulletin Board</h1>
+			<div id="title">
+				<div class="pin"></div>
+				<h1>Bulletin Board</h1>
+			</div>
 			<% if (session.logged){%>
-				<div>
+				<div id="header-logged">
 					<h3><%=session.message%></h3>
-					<a href="/members/<%=session.userId%>/edit" class="header-link">Edit Profile</a><br>
+					<a href="/members/<%=session.userId%>/edit" class="header-link">Edit Profile</a>
 					<a href="/members/logout" class="header-link">Logout</a>
 				</div>
 			<% } else { %>

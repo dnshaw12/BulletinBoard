@@ -1,23 +1,27 @@
 <% include ../partials/header.ejs%>
 
 	<div class="page">
+		<div class="page-head">
+			<div class="pin"></div>
 
-		<h1>Edit Profile</h1>
-
-		<form action="/members" method="POST">
-			First Name: <input type="text" name="firstName" value="<%=member.firstName%>">
-			Last Name: <input type="text" name="lastName" value="<%=member.lastName%>"><br/>
-			Email: <input type="email" name="email" value="<%=member.email%>"><br/>
-			Birthdday: <input type="date" name="birthday" value="<%=member.birthday%>">
-			<h3>Address</h3>
-			Address 1: <input type="text" name="addr1" value="<%=member.location.addr1%>"><br/>
-			Address 2: <input type="text" name="addr2" value="<%=member.location.addr2%>"><br/>
-			City: <input type="text" name="city" value="<%=member.location.city%>">
-			State: <input type="text" name="state" value="<%=member.location.state%>">
-			Zip Code: <input type="text" name="zip" value="<%=member.location.zip%>"><br/>
-			About Me: <br/><textarea name="aboutMe" row="5" col="10" value="<%=member.aboutMe%>"></textarea><br/>
-			<button>Submit</button>
-		</form>
+			<h1 class="title">Edit Profile</h1>
+		</div>
+		<div class="page-content">
+			<form action="/members" method="POST">
+				First Name: <input type="text" name="firstName" value="<%=member.firstName%>">
+				Last Name: <input type="text" name="lastName" value="<%=member.lastName%>"><br/>
+				Email: <input type="email" name="email" value="<%=member.email%>">
+				Birthdday: <input type="date" name="birthday" value="<%=member.birthday%>">
+				<h3>Address</h3>
+				Address 1: <input type="text" name="addr1" value="<%=member.location.addr1%>"><br/>
+				Address 2: <input type="text" name="addr2" value="<%=member.location.addr2%>"><br/>
+				City: <input type="text" name="city" value="<%=member.location.city%>">
+				State: <input type="text" name="state" value="<%=member.location.state%>">
+				Zip Code: <input type="text" name="zip" value="<%=member.location.zip%>"><br/>
+				About Me: <br/><textarea name="aboutMe" row="5" col="10" value="<%=member.aboutMe%>"></textarea><br/>
+				<button>Submit</button>
+			</form>
+		</div>
 
 	</div>
 
