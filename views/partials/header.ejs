@@ -12,26 +12,26 @@
 			<% if (session.logged){%>
 				<div>
 					<h3><%=session.message%></h3>
-					<a href="/members/logout">Logout</a>
+					<a href="/members/logout" class="header-link">Logout</a>
 				</div>
 			<% } else { %>
 				<span id="message-area"><%=session.message%></span>
-				<div>
-					<form action="/members/login" method="POST">
+				<div id="header-right">
+					<form action="/members/login" method="POST" id="login">
 						Email: <input type="email" name="email">
 						Password: <input type="password" name="password">
 						<button>Login</button>
 					</form>
-					<a href="/members/new">Sign Up</a><br/>
+					<div>Not a Member? <a href="/members/new" class="header-link">Sign Up</a></div>
 				</div>
 			<% } %>
 		</div>
 		<nav>
-			<a href="/">Home</a>
+			<a href="/" class="header-link">Home</a>
 			<% if (session.logged){%>
-				<a href="/events/create">Create new Event</a>
-				<a href="/groups/create">Create new Group</a>
-				<a href="/groups">See Groups</a>
+				<a href="/events/create" class="header-link">Create new Event</a>
+				<a href="/groups/create" class="header-link">Create new Group</a>
+				<a href="/groups" class="header-link">See Groups</a>
 			<% } %>
 		</nav>
 		

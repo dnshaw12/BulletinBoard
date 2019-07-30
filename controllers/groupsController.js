@@ -27,6 +27,9 @@ router.get('/', async (req, res, next) => {
 		console.log(privateGroups, '------ private groups');
 		const events = await Event.find({})
 
+		// events.forEach(e => console.log(e.groupHost))
+		// console.log(groups, "------groups");
+
 		
 		res.render('groups/index.ejs',{
 			groups: groups,

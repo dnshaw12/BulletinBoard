@@ -1,13 +1,17 @@
 <% include ../partials/header.ejs%>
 
-	<h1><%=group.name%></h1>
+	<div class="page">
 
-	<% if (admin) { %>
-		
-		<a href="/groups/<%=group._id%>/edit">Edit Group</a>
-		
-	<% } %>
+		<h1><%=group.name%></h1>
 
-	<p><%=group.description%></p>
+		<% if (admin) { %>
+			
+			<a href="/groups/<%=group._id%>/edit">Edit Group</a>
+			
+		<% } %>
+
+		<p><%=group.description%></p>
+
+	</div>
 
 <% include ../partials/footer.ejs%>

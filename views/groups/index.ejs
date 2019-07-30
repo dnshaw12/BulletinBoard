@@ -6,17 +6,17 @@
 		
 		<% groups.forEach( group => { %>
 
-		<li><a href="/groups/<%=group._id%>"><%=group.name%></a></li>
+		<li class="page"><a href="/groups/<%=group._id%>"><%=group.name%></a>
 
-			<ol>
-				<% events.forEach( event => { 
-					if (events.groupHost === group._id) { %>
+			<ol><%=group.name%>'s Events
+				<% events.forEach( event => { console.log(event.groupHost, group._id);
+					if (event.groupHost == group._id.toString()) { %>
 
 					<li><a href="/events/<%=event._id%>"><%=event.name%></a></li>
 
 				<% }}) %>
-
 			</ol>
+		</li>
 
 		<% }) %>
 

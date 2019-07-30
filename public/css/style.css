@@ -1,5 +1,6 @@
 body {
 	background-image: url("images/cork.jpg");
+	margin: 0px;
 }
 
 header, footer {
@@ -13,14 +14,19 @@ nav {
 	justify-content: space-evenly
 }
 
-nav > a {
-	color: white;
+.header-link {
+	color: lightgreen;
+}
+
+h3 {
+	padding: 0px;
+	margin: 0px;
 }
 
 header {
 	display: flex;
 	flex-direction: column;
-
+	margin: 0px;
 }
 
 header > div {
@@ -28,9 +34,31 @@ header > div {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0px 10px;
+}
+
+footer {
+	text-align: center;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	margin: 0px;
+}
+
+#header-right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
 }
 
 #event-info {
 	background-color: rgb(241, 241, 212);
 	margin-top: 10px;
+}
+
+.page {
+	background-color: rgb(241, 241, 212);
+	margin: 5%;
+	padding: 15px;
 }
