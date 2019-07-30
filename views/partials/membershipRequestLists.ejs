@@ -24,6 +24,7 @@ MEMBERS LIST: <%=members.length%><br>
 									<%=r.member.firstName + " " + r.member.lastName%>
 									<p><%=r.message%></p>
 									<button formaction="/groups/<%=group._id%>/accept">Accept</button>
+									<button formaction="/groups/<%=group._id%>/acceptAdmin">Accept as Admin</button>
 									<button>Reject</button>
 
 								</li>

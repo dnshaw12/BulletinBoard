@@ -17,6 +17,8 @@ router.get('/', async (req, res, next) => {
 		const memberships = await Membership.find({member: req.session.userId})
 			.populate('group')
 
+			console.log(memberships,"Membershipsssss");
+
 		const privateMemberships = await memberships.filter( m => m.group.private === true)
 
 		const privateGroups = await privateMemberships.map( m => m.group )
@@ -86,7 +88,7 @@ router.get('/:id', async (req, res, next) => {
 
 		const members = await Membership.find({group: req.params.id}).populate('member');
 
-		console.log(adminMember, 'adminMember');
+		// console.log(adminMember, 'adminMember');
 
 		let admin
 
@@ -96,7 +98,8 @@ router.get('/:id', async (req, res, next) => {
 			admin = true
 		}
 
-		console.log(admin, 'admin');
+		// console.log(admin, 'admin');
+
 
 		res.render('groups/show.ejs',{
 			group: group,
@@ -191,6 +194,74 @@ router.delete('/:id/reject', async (req, res, next) => {
 	} catch(err){
 	  next(err);
 	}
+
+})
+
+router.post('/:id/accept', async (req, res, next) => {
+	
+	try {
+
+		await Membership.create({
+			member: req.body.memberId,
+			group: req.params.id,
+			admin: false
+		})
+		
+
+		const group = await Group.findById(req.params.id)
+
+
+		console.log(group,"<----group");
+
+		const rIndex = await group.requests.findIndex( r => {
+			console.log(r.member.toString() === req.body.memberId);
+			return r.member.toString() === req.body.memberId
+		})
+		console.log(rIndex);
+		group.requests.splice(rIndex,1)
+
+		group.save()
+
+		res.redirect('/groups/'+req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+
+
+})
+
+router.post('/:id/acceptAdmin', async (req, res, next) => {
+	
+	try {
+
+		await Membership.create({
+			member: req.body.memberId,
+			group: req.params.id,
+			admin: true
+		})
+		
+
+		const group = await Group.findById(req.params.id)
+
+
+		console.log(group,"<----group");
+
+		const rIndex = await group.requests.findIndex( r => {
+			console.log(r.member.toString() === req.body.memberId);
+			return r.member.toString() === req.body.memberId
+		})
+		console.log(rIndex);
+		group.requests.splice(rIndex,1)
+
+		group.save()
+
+		res.redirect('/groups/'+req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+
 
 })
 

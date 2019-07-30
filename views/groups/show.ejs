@@ -21,7 +21,7 @@
 
 			<% } else if (!membership.length && 
 
-							group.requests.findIndex( r => r.member.toString() === session.userId) === -1
+							group.requests.findIndex( r => r.member._id.toString() === session.userId) === -1
 
 							) { %>
 					<div id="request-div"></div>
@@ -31,9 +31,9 @@
 
 			<% } else if (!membership.length && 
 
-							group.requests.findIndex( r => r.member.toString() === session.userId) >= 0
+							group.requests.findIndex( r => r.member._id.toString() === session.userId) >= 0
 
-							){ %>
+							){  %>
 				Your request is pending!
 			<% } else { %>
 

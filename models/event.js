@@ -17,7 +17,8 @@ const eventSchema = new mongoose.Schema({
 	},
 	beginDateTime: {
 		type: Date,
-		required: true
+		required: true,
+		default: Date.now
 	},
 	endDateTime:Date,
 	requests: [Request.schema],
