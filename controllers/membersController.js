@@ -78,6 +78,20 @@ router.get('/logout', async (req, res, next) => {
 
 })
 
+router.get('/:id/edit', async (req, res, next) => {
+	try {
+		const member = await Member.findById(req.params.id)
+
+
+		res.render('members/edit.ejs',{
+			member: member,
+			session: req.session
+		})
+
+	} catch(err){
+	  next(err);
+	}
+})
 
 router.get('/new', (req, res, next) => {
 	res.render('members/new.ejs',{

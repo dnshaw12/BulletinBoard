@@ -6,7 +6,7 @@ MEMBERS LIST: <%=members.length%><br>
 								<input type="hidden" name="memberId" value="<%=member.member._id%>">
 								<%=member.member.firstName + " " + member.member.lastName%>
 								<% if (member.member._id.toString() === session.userId) { %>
-									(me)
+									(me) <button>Leave Group</button>
 								<% } else { %>
 									<button>Remove</button>
 								<% } %>

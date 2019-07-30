@@ -12,6 +12,7 @@
 			<% if (session.logged){%>
 				<div>
 					<h3><%=session.message%></h3>
+					<a href="/members/<%=session.userId%>/edit" class="header-link">Edit Profile</a><br>
 					<a href="/members/logout" class="header-link">Logout</a>
 				</div>
 			<% } else { %>
