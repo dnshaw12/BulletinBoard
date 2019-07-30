@@ -78,7 +78,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 	try {
 		
-		const group = await Group.findById(req.params.id)
+		const group = await Group.findById(req.params.id).populate('requests.member')
 
 		const adminMember = await Membership.findOne({member: req.session.userId, group: req.params.id, admin: true})
 
@@ -148,6 +148,23 @@ router.post('/:id/request', async (req, res, next) => {
 	  next(err);
 	}
 
+
+})
+
+router.delete('/:id/remove', async (req, res, next) => {
+	console.log(req.body, 'delete reqbody');
+
+	try {
+		const removedMembership = await Membership.findOneAndDelete({member: req.body.memberId, group: req.params.id})
+
+		
+
+		res.redirect('/groups/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
 
 })
 
