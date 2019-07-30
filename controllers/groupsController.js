@@ -168,7 +168,31 @@ router.delete('/:id/remove', async (req, res, next) => {
 
 })
 
+router.delete('/:id/reject', async (req, res, next) => {
+	console.log('reject');
+	try {
+		const group = await Group.findById(req.params.id)
 
+
+		console.log(group,"<----group");
+
+		const rIndex = await group.requests.findIndex( r => {
+			console.log(r.member.toString() === req.body.memberId);
+			return r.member.toString() === req.body.memberId
+		})
+		console.log(rIndex);
+		group.requests.splice(rIndex,1)
+
+		group.save()
+
+		res.redirect('/groups/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
+
+})
 
 
 
