@@ -377,6 +377,23 @@ router.put('/:id', async (req, res, next) => {
 	}
 })
 
+router.delete('/:id', async (req, res, next) => {
+
+	try {
+
+		const deletedEvent = await Event.deleteOne({_id: req.params.id})
+		const deletedAttendance = await Attendance.deleteMany({event: req.params.id})
+
+		console.log(deletedEvent, 'deletedEvent');
+		console.log(deletedAttendance, 'deletedAttendance');
+
+		res.redirect('/members/'+req.session.userId+'/events')
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
 
 
 module.exports = router;
