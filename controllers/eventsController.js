@@ -5,9 +5,10 @@ const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
 const Membership  = require('../models/membership');
 const Request  = require('../models/request');
+const checkAuth = require('../lib/requireAuth')
 const bcrypt  = require('bcryptjs');
 
-router.get('/create', async (req, res, next) => {
+router.get('/create', checkAuth, async (req, res, next) => {
 
 	if (req.session.logged) {
 		try {
@@ -175,7 +176,7 @@ router.post('/:id/attend', async (req, res, next) => {
 
 })
 
-router.get('/:id/request', async (req, res, next) => {
+router.get('/:id/request', checkAuth, async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id);
 
@@ -291,7 +292,7 @@ router.post('/:id/accept', async (req, res, next) => {
 
 })
 
-router.get('/:id/edit', async (req, res, next) => {
+router.get('/:id/edit', checkAuth, async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost')
 

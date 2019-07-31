@@ -1,6 +1,19 @@
 
 <hr>
 
+Add Members
+<form action="/groups/<%=group._id%>/addMember" method="POST">
+	<select name='member'>
+		
+		<% nonMembers.forEach( m => {%>
+			<option value="<%=m._id%>"><%=m.firstName+" "+m.lastName%></option>
+		<% }) %>
+
+	</select><br>
+	<button>Add Member</button>
+	<button formaction="/groups/<%=group._id%>/addAdmin">Add Member as Admin</button>
+</form>
+
 <p class="inner-list">MEMBERS LIST: <%=members.length%></p>
 				<ol>
 					<% members.forEach( member => {%>

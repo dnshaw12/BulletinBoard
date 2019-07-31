@@ -6,6 +6,7 @@ const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
 const Membership  = require('../models/membership');
 const Request  = require('../models/request');
+const checkAuth = require('../lib/requireAuth')
 const bcrypt  = require('bcryptjs');
 
 router.get('/', async (req, res, next) => {
@@ -45,7 +46,7 @@ router.get('/', async (req, res, next) => {
 
 })
 
-router.get('/create', (req, res, next) => {
+router.get('/create', checkAuth, (req, res, next) => {
 	
 	res.render('groups/new.ejs',{
 		session: req.session
@@ -88,8 +89,13 @@ router.get('/:id', async (req, res, next) => {
 		const membership = await Membership.find({member: req.session.userId, group: req.params.id})
 
 		const members = await Membership.find({group: req.params.id}).populate('member');
+		const memberIds = members.map( m => m.member._id)
 
 		const events = await Event.find({groupHost: req.params.id}).populate('groupHost')
+
+		const nonMembers = await Member.find({_id: {
+			$nin: memberIds
+		}})
 
 		// console.log(adminMember, 'adminMember');
 
@@ -110,7 +116,8 @@ router.get('/:id', async (req, res, next) => {
 			members: members,
 			events: events,
 			session: req.session,
-			membership: membership
+			membership: membership,
+			nonMembers: nonMembers
 		})
 
 	} catch(err){
@@ -118,7 +125,7 @@ router.get('/:id', async (req, res, next) => {
 	}
 })
 
-router.get('/:id/request', async (req, res, next) => {
+router.get('/:id/request', checkAuth, async (req, res, next) => {
 	try {
 		const group = await Group.findById(req.params.id);
 
@@ -269,7 +276,7 @@ router.post('/:id/acceptAdmin', async (req, res, next) => {
 
 })
 
-router.get('/:id/edit', async (req, res, next) => {
+router.get('/:id/edit', checkAuth, async (req, res, next) => {
 	try {
 		const group = await Group.findById(req.params.id)
 
@@ -317,6 +324,34 @@ router.delete('/:id', async (req, res, next) => {
 
 		res.redirect('/members/'+req.session.userId+'/groups')
 		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.post('/:id/addMember', async (req, res, next) => {
+	try {
+
+		
+		const newMembership = await Membership.create({member: req.body.member, group: req.params.id, admin: false})
+
+		res.redirect('/groups/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.post('/:id/addAdmin', async (req, res, next) => {
+	try {
+
+		
+		const newMembership = await Membership.create({member: req.body.member, group: req.params.id, admin: true})
+
+		res.redirect('/groups/'+req.params.id)
+
+
 	} catch(err){
 	  next(err);
 	}
