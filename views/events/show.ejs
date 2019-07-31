@@ -25,28 +25,35 @@
 
 			<% } %>
 
+			<div class="host">
+				Hosted by <% if (event.memberHost !== null) {%>
+						<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
+					<% } else { %>
+						<%=event.groupHost.name%>
+					<% } %>
+				
+			</div>
 
-			<p>Hosted by <% if (event.memberHost !== null) {%>
-					<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
-				<% } else { %>
-					<%=event.groupHost.name%>
-				<% } %>
-			</p>
-
-			<h5>Date & Time: <%=event.beginDateTime%></h5>
-			<% if (event.endDateTime) { %>
-				<h5>End Time: <%=event.endDateTime%></h5>
-			<% } %>
-			Location: <div id="event-address">
-				<%=event.location.addr1%><br/>
-				<% if (event.location.addr2) { %>
-					<%=event.location.addr2%><br/>
+			<div class="times">
+				<h5>Date & Time: <%=event.beginDateTime%></h5>
+				<% if (event.endDateTime) { %>
+					<h5>End Time: <%=event.endDateTime%></h5>
 				<% } %>	
-				<%=event.location.city%>, <%=event.location.state%> <%=event.location.zip%>
-			</div><br/>
+			</div>
+			<div class="location">
+				Location: <div id="event-address">
+					<%=event.location.addr1%>
+					<% if (event.location.addr2) { %>
+						, <%=event.location.addr2%><br/>
+					<% } %>	
+					<%=event.location.city%>, <%=event.location.state%> <%=event.location.zip%>
+				</div><br/>
+			</div>
 
-			<h3>Description:</h3></br>
-			<p><%=event.description%></p>
+			<div class="description">
+				<h3>Description:</h3>
+				<p><%=event.description%></p>
+			</div>
 
 			<% if (session.logged) { %>
 

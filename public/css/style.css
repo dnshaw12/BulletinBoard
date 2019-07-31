@@ -16,6 +16,10 @@ nav {
 	font-size: 23px;
 }
 
+a {
+	color: black;
+}
+
 .header-link {
 	color: lightgreen;
 	padding: 5px 10px;
@@ -117,6 +121,7 @@ footer {
 	display: inline-block;
 	margin: 0px;
 	padding-left: 15px;
+	font-size: 30px;
 }
 
 .page-head {
@@ -139,4 +144,9 @@ footer {
 
 .host {
 	font-size: 15px;
+}
+
+main {
+	display: inherit;
+
 }

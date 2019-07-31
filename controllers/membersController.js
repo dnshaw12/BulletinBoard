@@ -2,6 +2,8 @@ const express = require('express');
 const router  = express.Router();
 const Member  = require('../models/member');
 const Event  = require('../models/event');
+const Membership  = require('../models/membership');
+const Attendance  = require('../models/attendance');
 const bcrypt  = require('bcryptjs');
 
 router.post('/', async (req, res, next) => {
@@ -131,6 +133,51 @@ router.put('/:id', async (req, res, next) => {
       	console.log(updatedMember,'updatedMember!!!!');
 
       	res.redirect('/')
+	} catch(err){
+	  next(err);
+	}
+
+})
+
+router.get('/:id/groups', async (req, res, next) => {
+	console.log('my group page');
+	try {
+
+		const memberships = await Membership.find({member: req.session.userId})
+			.populate('group')
+
+		const groups = await memberships.map( m => m.group )
+
+		const events = await Event.find({})
+
+		
+		res.render('groups/index.ejs',{
+			groups: groups,
+			events: events,
+			session: req.session
+		})
+	} catch(err){
+	  next(err);
+	}
+
+})
+
+router.get('/:id/events', async (req, res, next) => {
+
+	try {
+		const attendance = await Attendance.find({member: req.session.userId})
+			.populate('event')
+
+			console.log(attendance,'attendance');
+
+		const events = await attendance.map( a => a.event )
+
+		console.log(events);
+
+		res.render('index.ejs', {
+			events: events,
+	  		session: req.session
+	  	})
 	} catch(err){
 	  next(err);
 	}

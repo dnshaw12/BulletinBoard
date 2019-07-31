@@ -10,8 +10,8 @@
 	<header>
 		<div>
 			<div id="title">
-				<div class="pin"></div>
-				<h1>Bulletin Board</h1>
+				<a href="/"><div class="pin"></div></a>
+				<h1 action="/">Bulletin Board</h1>
 			</div>
 			<% if (session.logged){%>
 				<div id="header-logged">
@@ -32,11 +32,15 @@
 			<% } %>
 		</div>
 		<nav>
-			<a href="/" class="header-link">Home</a>
 			<% if (session.logged){%>
+				<a href="/members/:id/events" class="header-link">My Events</a>
+				<a href="/members/:id/groups" class="header-link">My Groups</a>
+				<a href="/" class="header-link">Browse Events</a>
+				<a href="/groups" class="header-link">Browse Groups</a>
 				<a href="/events/create" class="header-link">Create new Event</a>
 				<a href="/groups/create" class="header-link">Create new Group</a>
-				<a href="/groups" class="header-link">See Groups</a>
+			<% } else { %>
+				<a href="/" class="header-link">Home</a>
 			<% } %>
 		</nav>
 		
