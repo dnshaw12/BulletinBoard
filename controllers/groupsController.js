@@ -269,7 +269,37 @@ router.post('/:id/acceptAdmin', async (req, res, next) => {
 
 })
 
+router.get('/:id/edit', async (req, res, next) => {
+	try {
+		const group = await Group.findById(req.params.id)
 
+		res.render('groups/edit.ejs',{
+			group: group,
+			session: req.session
+		})
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.put('/:id', async (req, res, next) => {
+	try {
+		
+		if (req.body.private === 'on') {
+			req.body.private = true
+		} else {
+			req.body. private = false
+		}
+
+		const updatedGroup = await Group.findByIdAndUpdate(req.params.id, req.body,{new: true})
+
+		res.redirect('/groups/'+req.params.id)
+
+	} catch(err){
+	  next(err);
+	}
+})
 
 
 

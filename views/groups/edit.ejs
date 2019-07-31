@@ -1,0 +1,27 @@
+<% include ../partials/header.ejs%>
+
+	<div class="page">
+		<div class="page-header">
+			<div class="pin"></div>
+			<h1 class="title">Edit Group</h1>
+		</div>
+		
+		<div class="page-content">
+			<form action="/groups/<%=group._id%>?_method=PUT" method="POST">
+				Name: <input type="text" name="name" value="<%=group.name%>"><br/>
+				Descirption: <br/><textarea name="description" row="5" col="10"><%=group.description%></textarea><br/>
+				Private: <input type="checkbox" name="private"
+					<% if (group.private) { %>
+						checked
+					<% } %>
+				><br/>
+				<button>Update Group</button>
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+<% include ../partials/footer.ejs%>
