@@ -11,7 +11,7 @@ const fs = require('fs')
 const upload = multer({dest: 'uploads/'})
 
 router.post('/', upload.single('profilePic'), async (req, res, next) => {
-	console.log(req.body);
+	// console.log(req.body);
 	req.body.location = {}
 
 	req.body.location.addr1 = req.body.addr1
@@ -28,11 +28,11 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 
 
 
-		console.log(req.body,"look for profile pic");
+		// console.log(req.body,"look for profile pic");
 		// console.log(req.file.filename, "FILE NAME");
 
 		const newMember = await Member.create(req.body)
-		console.log(newMember, 'newMember');
+		// console.log(newMember, 'newMember');
 
 		if (req.file) {	
 			req.session.hasPic = true
@@ -44,7 +44,7 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 		}
 
 
-		console.log(newMember, 'NEWMEMBER');
+		// console.log(newMember, 'NEWMEMBER');
 
 		await newMember.save()
 
@@ -53,13 +53,13 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
       	req.session.message = `Thanks for joining us, ${newMember.firstName}!`
       	req.session.logged = true;
 
-      	console.log(req.session);
+      	// console.log(req.session);
       	res.redirect('/')
 	} catch(err){
 	  next(err);
 	}
 
-	// console.log(req.body);
+	console.log(req.body);
 })
 
 router.post('/login', async (req, res, next) => {
@@ -67,7 +67,7 @@ router.post('/login', async (req, res, next) => {
 	try {
 		
 		const foundMember = await Member.findOne({email: req.body.email});
-		console.log(foundMember,'foundMember');
+		// console.log(foundMember,'foundMember');
 
 		if (foundMember) {
 			if (bcrypt.compareSync(req.body.password, foundMember.password)) {
@@ -76,7 +76,7 @@ router.post('/login', async (req, res, next) => {
 		      	req.session.message = `Welcome back, ${foundMember.firstName}!`;
 		      	req.session.logged = true;
 
-		      	console.log(foundMember.profilePic.data, "PROFILE PIC CHECK");
+		      	// console.log(foundMember.profilePic.data, "PROFILE PIC CHECK");
 
 		      	if (foundMember.profilePic.data) {
 		      		req.session.hasPic = true
@@ -145,7 +145,7 @@ router.get('/new', (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-	console.log(req.body);
+	// console.log(req.body);
 	req.body.location = {}
 
 	req.body.location.addr1 = req.body.addr1
@@ -162,7 +162,7 @@ router.put('/:id', async (req, res, next) => {
       	req.session.firstName = updatedMember.firstName;
       	req.session.message = `Your information has been updated, ${updatedMember.firstName}!`;
 
-      	console.log(updatedMember,'updatedMember!!!!');
+      	// console.log(updatedMember,'updatedMember!!!!');
 
       	res.redirect('/members/'+req.params.id)
 	} catch(err){
@@ -172,7 +172,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.get('/:id/groups', checkAuth, async (req, res, next) => {
-	console.log('my group page');
+	// console.log('my group page');
 	try {
 
 		const memberships = await Membership.find({member: req.session.userId})
@@ -203,7 +203,7 @@ router.get('/:id/events', checkAuth, async (req, res, next) => {
 			    populate: [{ path: 'memberHost' },{ path: 'groupHost' }]
 			});
 
-			console.log(attendance,'attendance');
+			// console.log(attendance,'attendance');
 
 		const events = await attendance.map( a => a.event )
 
@@ -249,10 +249,10 @@ router.get('/profilePic/:id', async (req, res, next) => {
 	try {
 
 
-		console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
+		// console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
 		const member = await Member.findById(req.params.id);
 
-		console.log(member);
+		// console.log(member);
 
 		
 

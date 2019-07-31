@@ -44,11 +44,11 @@ app.use((req, res, next) => {
 		} else {
 			res.locals.userId = undefined
 		}
-		console.log(req.session.userId,res.locals.userId, "LOCALS ID!!!!!!!");
+		// console.log(req.session.userId,res.locals.userId, "LOCALS ID!!!!!!!");
 		res.locals.hasPic = req.session.hasPic ? true : false
 
 
-		console.log(res.locals, 'LOCALSSSSSSSSS');
+		// console.log(res.locals, 'LOCALSSSSSSSSS');
 
 
 		next()

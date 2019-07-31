@@ -7,8 +7,9 @@
 		</div>
 		
 		<div class="page-content">
-			<form action="/groups" method="POST">
+			<form action="/groups" method="POST" enctype="multipart/form-data">
 				Name: <input type="text" name="name"><br/>
+				Profile Picture: <input type="file" name="profilePic"><br/>
 				Descirption: <br/><textarea name="description" row="5" col="10"></textarea><br/>
 				Private: <input type="checkbox" name="private"><br/>
 				<button>Submit</button>

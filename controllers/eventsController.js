@@ -19,11 +19,11 @@ router.get('/create', checkAuth, async (req, res, next) => {
 			const groups = memberships.map( m => m.group )
 
 
-			console.log(now, "NOW");
+			// console.log(now, "NOW");
 
 
 
-			console.log(currentMember);
+			// console.log(currentMember);
 			
 			res.render('events/new.ejs', {
 				member: currentMember,
@@ -53,15 +53,15 @@ router.post('/', async (req, res, next) => {
 	req.body.location.zip = req.body.zip
 	req.body.requests = []
 
-	console.log("\n here is req.body");
-	console.log(req.body);
+	// console.log("\n here is req.body");
+	// console.log(req.body);
 
 	try {
 		const memberHost = await Member.findOne({ _id: req.body.host })
 
 
 		if (memberHost) {
-			console.log(memberHost,'memberHost');
+			// console.log(memberHost,'memberHost');
 			req.body.memberHost = req.body.host
 			req.body.groupHost = null
 		} else {
@@ -85,7 +85,7 @@ router.post('/', async (req, res, next) => {
 			req.body.attendeeMax = parseInt(req.body.attendeeMax)
 		}
 
-		console.log(req.body);
+		// console.log(req.body);
 
 		const newEvent = await Event.create(req.body);
 
@@ -94,13 +94,13 @@ router.post('/', async (req, res, next) => {
 		 	event: newEvent._id
 		})
 
-		console.log(attendance);
+		// console.log(attendance);
 
 		req.session.message = `${req.body.name} has been created!`
 
 
-		console.log("\nwe created  this")
-		console.log(newEvent);
+		// console.log("\nwe created  this")
+		// console.log(newEvent);
 
 		res.redirect('/')
 		
@@ -114,12 +114,12 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost').populate('requests.member')
 
-		console.log(event, '========EVENT');
+		// console.log(event, '========EVENT');
 
 		let host
 
 		if (event.groupHost !== null) {
-			console.log('group');
+			// console.log('group');
 			host = await Membership.find({member: req.session.userId, group: event.groupHost._id, admin: true})
 
 			if (host.length === 0) {
@@ -131,20 +131,20 @@ router.get('/:id', async (req, res, next) => {
 			host = false
 		}
 
-		// console.log(DateFormat.format.date(event.beginDateTime));
+		console.log(DateFormat.format.date(event.beginDateTime));
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
 		const attendees = await Attendance.find({event: req.params.id}).populate('member');
 
-		console.log(event.requests, req.session.userId);
+		// console.log(event.requests, req.session.userId);
 
-		// console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
-		// console.log(req.session.userId);
+		console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
+		console.log(req.session.userId);
 
-		// console.log(attendees);
+		console.log(attendees);
 
-		console.log(attendance,'attendance');
+		// console.log(attendance,'attendance');
 
 		res.render('events/show.ejs', {
 			event: event,
@@ -167,7 +167,7 @@ router.post('/:id/attend', async (req, res, next) => {
 		 	event: req.params.id
 		})
 
-		console.log(attendance);
+		// console.log(attendance);
 
 		res.redirect('/events/' + req.params.id)
 
@@ -201,13 +201,13 @@ router.post('/:id/request', async (req, res, next) => {
 		const event = await Event.findById(req.params.id)
 		const newRequest = await Request.create(req.body)
 
-		console.log(newRequest);
+		// console.log(newRequest);
 
 		event.requests.push(newRequest)
 
 		await event.save()
 
-		console.log(event.requests, 'event requests');
+		// console.log(event.requests, 'event requests');
 
 		res.redirect('/events/' + req.params.id)
 
@@ -219,12 +219,12 @@ router.post('/:id/request', async (req, res, next) => {
 })
 
 router.delete('/:id/remove', async (req, res, next) => {
-	console.log(req.body, 'delete reqbody');
+	// console.log(req.body, 'delete reqbody');
 
 	try {
 		const removedAttendance = await Attendance.findOneAndDelete({member: req.body.memberId, event: req.params.id})
 
-		console.log(removedAttendance);
+		// console.log(removedAttendance);
 
 		res.redirect('/events/'+req.params.id)
 
@@ -236,18 +236,18 @@ router.delete('/:id/remove', async (req, res, next) => {
 })
 
 router.delete('/:id/reject', async (req, res, next) => {
-	console.log('reject');
+	// console.log('reject');
 	try {
 		const event = await Event.findById(req.params.id)
 
 
-		console.log(event,"<----event");
+		// console.log(event,"<----event");
 
 		const rIndex = await event.requests.findIndex( r => {
-			console.log(r.member.toString() === req.body.memberId);
+			// console.log(r.member.toString() === req.body.memberId);
 			return r.member.toString() === req.body.memberId
 		})
-		console.log(rIndex);
+		// console.log(rIndex);
 		event.requests.splice(rIndex,1)
 
 		event.save()
@@ -274,13 +274,13 @@ router.post('/:id/accept', async (req, res, next) => {
 		const event = await Event.findById(req.params.id)
 
 
-		console.log(event,"<----event");
+		// console.log(event,"<----event");
 
 		const rIndex = await event.requests.findIndex( r => {
-			console.log(r.member.toString() === req.body.memberId);
+			// console.log(r.member.toString() === req.body.memberId);
 			return r.member.toString() === req.body.memberId
 		})
-		console.log(rIndex);
+		// console.log(rIndex);
 		event.requests.splice(rIndex,1)
 
 		event.save()
@@ -307,7 +307,7 @@ router.get('/:id/edit', checkAuth, async (req, res, next) => {
 			endDateTime = null
 		}
 
-		console.log(beginDateTime, 'beginDateTime',event.beginDateTime);
+		// console.log(beginDateTime, 'beginDateTime',event.beginDateTime);
 
 		res.render('events/edit.ejs', {
 			event: event,
@@ -333,12 +333,12 @@ router.put('/:id', async (req, res, next) => {
 
 	try {
 
-		// console.log(req.body.host, 'HOST');
+		console.log(req.body.host, 'HOST');
 
 		// const memberHost = await Member.findOne({ _id: req.body.host })
 
 		// if (memberHost) {
-		// 	// console.log(memberHost,'memberHost');
+			// console.log(memberHost,'memberHost');
 		// 	req.body.memberHost = req.body.host
 		// 	req.body.groupHost = null
 		// } else {
@@ -370,8 +370,8 @@ router.put('/:id', async (req, res, next) => {
 		req.session.message = `${req.body.name} has been updated!`
 
 
-		console.log("\nwe created  this")
-		console.log(updatedEvent);
+		// console.log("\nwe created  this")
+		// console.log(updatedEvent);
 
 		res.redirect('/events/'+req.params.id)
 		
@@ -387,8 +387,8 @@ router.delete('/:id', async (req, res, next) => {
 		const deletedEvent = await Event.deleteOne({_id: req.params.id})
 		const deletedAttendance = await Attendance.deleteMany({event: req.params.id})
 
-		console.log(deletedEvent, 'deletedEvent');
-		console.log(deletedAttendance, 'deletedAttendance');
+		// console.log(deletedEvent, 'deletedEvent');
+		// console.log(deletedAttendance, 'deletedAttendance');
 
 		res.redirect('/members/'+req.session.userId+'/events')
 		
