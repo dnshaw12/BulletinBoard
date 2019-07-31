@@ -1,4 +1,6 @@
-ATTENDEES LIST: <%=attendees.length%><br>
+<hr>
+
+<p class="inner-list">ATTENDEES LIST: <%=attendees.length%></p>
 				<ol>
 					<% attendees.forEach( attendee => {%>
 						<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
@@ -15,18 +17,18 @@ ATTENDEES LIST: <%=attendees.length%><br>
 					<% }) %>
 				</ol>
 
-			PENDING REQUESTS: </br>
-				<ol>
-					<% event.requests.forEach( r => { %>
-							<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
-								<li>
-									<input type="hidden" name="memberId" value="<%=r.member._id%>">
-									<%=r.member.firstName + " " + r.member.lastName%>
-									<p><%=r.message%></p>
-									<button formaction="/events/<%=event._id%>/accept">Accept</button>
-									<button>Reject</button>
+<p class="inner-list">PENDING REQUESTS: <%=event.requests.length%></p>
+	<ol>
+		<% event.requests.forEach( r => { %>
+				<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
+					<li>
+						<input type="hidden" name="memberId" value="<%=r.member._id%>">
+						<%=r.member.firstName + " " + r.member.lastName%>
+						<p><%=r.message%></p>
+						<button formaction="/events/<%=event._id%>/accept">Accept</button>
+						<button>Reject</button>
 
-								</li>
-							</form>
-						<% }) %>
-				</ol>
+					</li>
+				</form>
+			<% }) %>
+	</ol>

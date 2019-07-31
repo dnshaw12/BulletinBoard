@@ -124,7 +124,6 @@ router.put('/:id', async (req, res, next) => {
 	try {
 		const updatedMember = await Member.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-		// await updatedMember.save()
 
       	req.session.firstName = updatedMember.firstName;
       	req.session.message = `Your information has been updated, ${updatedMember.firstName}!`;
@@ -150,7 +149,7 @@ router.get('/:id/groups', async (req, res, next) => {
 		const events = await Event.find({})
 
 		
-		res.render('groups/index.ejs',{
+		res.render('members/mygroups.ejs',{
 			groups: groups,
 			events: events,
 			session: req.session
@@ -165,14 +164,17 @@ router.get('/:id/events', async (req, res, next) => {
 
 	try {
 		const attendance = await Attendance.find({member: req.session.userId})
-			.populate('event')
+			.populate({
+			    path: 'event',
+			    populate: [{ path: 'memberHost' },{ path: 'groupHost' }]
+			});
 
 			console.log(attendance,'attendance');
 
 		const events = await attendance.map( a => a.event )
 
 
-		res.render('index.ejs', {
+		res.render('members/myevents.ejs', {
 			events: events,
 	  		session: req.session
 	  	})

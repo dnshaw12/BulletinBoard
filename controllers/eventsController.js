@@ -12,12 +12,16 @@ router.get('/create', async (req, res, next) => {
 	if (req.session.logged) {
 		try {
 
-			const now = new Date()//.toISOString().substr(0,10)
+			const now = new Date().toString()
 			const currentMember = await Member.findOne({_id: req.session.userId})
 			const memberships = await Membership.find({member: req.session.userId, admin: true}).populate('group')
 			const groups = memberships.map( m => m.group )
 
-			console.log(groups, '======= members groups');
+
+			console.log(now, "NOW");
+
+
+
 			console.log(currentMember);
 			
 			res.render('events/new.ejs', {
@@ -287,7 +291,91 @@ router.post('/:id/accept', async (req, res, next) => {
 
 })
 
+router.get('/:id/edit', async (req, res, next) => {
+	try {
+		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost')
 
+		const beginDateTime = event.beginDateTime.toISOString().substr(0,10)
+		let endDateTime
+
+		if (event.endDateTime) {
+			endDateTime = event.endDateTime.toISOString().substr(0,10)
+		} else {
+			endDateTime = null
+		}
+
+		console.log(event,"event to update!");
+
+		res.render('events/edit.ejs', {
+			event: event,
+			beginDateTime: beginDateTime,
+			endDateTime: endDateTime,
+			session: req.session
+		})
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.put('/:id', async (req, res, next) => {
+
+	req.body.location = {}
+
+	req.body.location.addr1 = req.body.addr1
+	req.body.location.addr2 = req.body.addr2
+	req.body.location.city = req.body.city
+	req.body.location.state = req.body.state
+	req.body.location.zip = req.body.zip
+
+	try {
+
+		// console.log(req.body.host, 'HOST');
+
+		// const memberHost = await Member.findOne({ _id: req.body.host })
+
+		// if (memberHost) {
+		// 	// console.log(memberHost,'memberHost');
+		// 	req.body.memberHost = req.body.host
+		// 	req.body.groupHost = null
+		// } else {
+		// 	req.body.memberHost = null
+		// 	req.body.groupHost = req.body.host
+		// }
+
+		if (req.body.hasAlcohol === 'on') {
+			req.body.hasAlcohol = true
+		} else {
+			req.body.hasAlcohol = false
+		}
+
+		if (req.body.membersOnly === 'on') {
+			req.body.membersOnly = true
+		} else {
+			req.body.membersOnly = false
+		}
+
+		if (req.body.attendeeMax) {
+			req.body.attendeeMax = parseInt(req.body.attendeeMax)
+		}
+
+
+		const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+
+
+		req.session.message = `${req.body.name} has been updated!`
+
+
+		console.log("\nwe created  this")
+		console.log(updatedEvent);
+
+		res.redirect('/events/'+req.params.id)
+		
+	} catch(err){
+	  next(err);
+	}
+})
 
 
 

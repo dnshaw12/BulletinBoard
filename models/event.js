@@ -20,7 +20,7 @@ const eventSchema = new mongoose.Schema({
 		required: true,
 		default: Date.now
 	},
-	endDateTime:Date,
+	endDateTime: Date,
 	requests: [Request.schema],
 	description: {
 		type: String,

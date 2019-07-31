@@ -1,7 +1,4 @@
-<% include ./partials/header.ejs %>
-
-		
-		<% events.forEach( event => {%>
+<% events.forEach( event => {%>
 			<div class="page">
 
 			<div class=page-head>
@@ -15,7 +12,7 @@
 						
 						<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
 
-					<% } else { %>
+					<% } else {  console.log(event.groupHost.name);%>
 
 						<%=event.groupHost.name%>
 						
@@ -26,7 +23,3 @@
 
 	</div>
 		<% }) %>
-
-
-
-<% include ./partials/footer.ejs %>

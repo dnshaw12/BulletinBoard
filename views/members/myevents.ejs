@@ -1,8 +1,13 @@
-<% include ./partials/header.ejs %>
+<% include ../partials/header.ejs %>
+
+	<div class="page-tag">
+		<div class="pin"></div>
+		<h1 class="title">My Events</h1>
+	</div>
 
 		
 		<% events.forEach( event => {%>
-			<div class="page">
+	<div class="page">
 
 			<div class=page-head>
 				<div class="pin"></div>
@@ -29,4 +34,4 @@
 
 
 
-<% include ./partials/footer.ejs %>
+<% include ../partials/footer.ejs %>

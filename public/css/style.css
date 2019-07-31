@@ -188,3 +188,24 @@ main {
 	display: inherit;
 
 }
+
+hr {
+	margin: 0px;
+	height: 2px;
+	color: black;
+}
+
+.page-content > h2 {
+	font-size: 25px;
+} 
+
+.inner-list {
+	font-size: 25px;
+	margin: 0px;
+}
+
+.page-content > ol {
+	font-size: 20px;
+	padding-left: 15px;
+	margin-top: 0px;
+}

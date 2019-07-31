@@ -19,6 +19,12 @@
 
 			<h2><%=group.name%>'s Upcoming Events!</h2>
 
+			<ol>
+				
+				<% include ../partials/eventlist.ejs%>
+
+			</ol>
+
 			<% if (session.logged) { %>
 
 				<% if (admin) { %>

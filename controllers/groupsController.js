@@ -26,6 +26,7 @@ router.get('/', async (req, res, next) => {
 		const groups = publicGroups.concat(privateGroups)
 
 
+
 		console.log(privateGroups, '------ private groups');
 		const events = await Event.find({})
 
@@ -88,6 +89,8 @@ router.get('/:id', async (req, res, next) => {
 
 		const members = await Membership.find({group: req.params.id}).populate('member');
 
+		const events = await Event.find({groupHost: req.params.id}).populate('groupHost')
+
 		// console.log(adminMember, 'adminMember');
 
 		let admin
@@ -105,6 +108,7 @@ router.get('/:id', async (req, res, next) => {
 			group: group,
 			admin: admin,
 			members: members,
+			events: events,
 			session: req.session,
 			membership: membership
 		})
@@ -264,6 +268,8 @@ router.post('/:id/acceptAdmin', async (req, res, next) => {
 
 
 })
+
+
 
 
 

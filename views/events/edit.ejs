@@ -1,0 +1,55 @@
+<% include ../partials/header.ejs%>
+
+	<div class="page">
+		<div class="page-head">
+			<div class="pin"></div>
+
+			<h1 class="title">Edit Event</h1>
+		</div>
+
+		<div class="page-content">
+
+			<form action="/events/<%=event._id%>?_method=PUT" method="POST">
+				Name: <input type="text" name="name" value="<%=event.name%>"><br/>
+				Host: <% if (event.memberHost) {%>
+							<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
+							<!-- <input type="hidden" name="host" value="<%event.memberHost._id%>"> -->
+						<% } else {%>
+							<%=event.groupHost.name%>
+							<!-- <input type="hidden" name="host" value="<%event.groupHost._id%>"> -->
+						<% } %><br>
+
+				Date & Time: <input type="datetime-local" name="beginDateTime" value="<%=beginDateTime%>">
+				End Time: <input type="datetime-local" name="endDateTime" value="<%=endDateTime%>">
+				<h3>Address</h3>
+				Address 1: <input type="text" name="addr1" value="<%=event.location.addr1%>">
+				Address 2: <input type="text" name="addr2" value="<%=event.location.addr2%>"><br/>
+				City: <input type="text" name="city" value="<%=event.location.city%>">
+				State: <input type="text" name="state" value="<%=event.location.state%>"> 
+				Zip Code: <input type="text" name="zip" value="<%=event.location.zip%>"><br/>
+				Event Picture: <!-- // FILE --><br/>
+				Description: <br/><textarea name="description" row="10" col="30"><%=event.description%></textarea><br/>
+				
+				<% if (event.groupHost) { %>
+					Members Only: <input type="checkbox" type="hidden" name="membersOnly"
+						<% if (event.membersOnly) {%>
+							checked ><br/>
+						<% } %>
+				<% } else { %>
+					<input type="hidden" name="membersOnly">
+				<% } %>
+
+				Maximum Attendees (optional): <input type="number" name="attendeeMax" value="<%=event.attendeeMax%>"><br/>
+
+				21+: <input type="checkbox" name="hasAlcohol" 
+					<% if (event.hasAlcohol) {%>
+						checked
+					<% } %>
+				><br/>
+				<button>Update Event</button>
+				<button formaction="/events/<%=event._id%>?_method=DELETE" method="POST">Delete Event</button>
+			</form>
+		</div>
+	</div>
+
+<% include ../partials/footer.ejs%>
