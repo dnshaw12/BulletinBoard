@@ -73,6 +73,7 @@ router.get('/logout', async (req, res, next) => {
 	try {
 		await req.session.destroy()
 
+
 		res.redirect('/')
 	} catch(err){
 	  next(err);
@@ -91,8 +92,6 @@ router.get('/:id/edit', async (req, res, next) => {
 		} else {
 			birthday = null
 		}
-
-
 
 		res.render('members/edit.ejs',{
 			birthday:birthday,
@@ -172,7 +171,6 @@ router.get('/:id/events', async (req, res, next) => {
 
 		const events = await attendance.map( a => a.event )
 
-		console.log(events);
 
 		res.render('index.ejs', {
 			events: events,

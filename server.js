@@ -55,6 +55,10 @@ app.get('/', async (req, res, next) => {
 
 		console.log(events);
 
+		if (req.session.logged) {
+			session.message = "Hi, "+req.session.firstName+"!"
+		}
+
 		res.render('index.ejs', {
 			events: events,
 	  		session: req.session

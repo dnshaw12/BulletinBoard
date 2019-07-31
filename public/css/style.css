@@ -18,11 +18,35 @@ nav {
 
 a {
 	color: black;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+a:hover {
+	color: rgb(13,55,13);
+	text-decoration: underline;
 }
 
 .header-link {
 	color: lightgreen;
 	padding: 5px 10px;
+	transition: 0.2s;
+}
+
+.header-link:hover {
+	color: white;
+	text-decoration: none;
+	transform: scale(1.15);
+}
+
+.page-head > a:hover {
+	color: rgb(13,55,13);
+	text-decoration: none;
+	transform: scale(1.15);
+}
+
+.header-link:active {
+	font-size: 24px;
 }
 
 h3 {
@@ -80,6 +104,14 @@ footer {
 	font-family: 'Pacifico', cursive;
 }
 
+ul {
+	list-style-type: none;
+}
+
+ol {
+	padding-left: 30px;
+}
+
 .page:last-child {
 	margin-bottom: 10%;
 }
@@ -91,6 +123,12 @@ footer {
 	padding: 0px;
 	box-shadow: 10px 10px rgba(105,105,105,0.8);
 	border: 2px solid rgb(171,163,135);
+	transform: scale(1);
+	transition: 0.3s;
+}
+
+.page:hover {
+	transform: scale(1.05);
 }
 
 .page-tag {

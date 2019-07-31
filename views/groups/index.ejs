@@ -16,7 +16,8 @@
 				<a href="/groups/<%=group._id%>"><h2 class="title"><%=group.name%></h2></a>
 			</div>
 			<div class="page-content">
-				<ol><h3><%=group.name%>'s Events</h3>
+				<h3><%=group.name%>'s Events</h3>
+				<ol>
 
 					<% events.forEach( event => { console.log(event.groupHost, group._id);
 						if (event.groupHost == group._id.toString()) { %>
