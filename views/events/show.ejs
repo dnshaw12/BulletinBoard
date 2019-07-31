@@ -73,7 +73,7 @@
 
 								event.attendeeMax !== null &&
 
-								event.requests.findIndex( r => r.member.toString() === session.userId) === -1
+								event.requests.findIndex( r => r.member.id.toString() === session.userId) === -1
 
 								) { %>
 						<%= event.attendeeMax - attendees.length%> spot(s) left!
@@ -86,7 +86,7 @@
 
 								event.attendeeMax !== null &&
 
-								event.requests.findIndex( r => r.member.toString() === session.userId) >= 0
+								event.requests.findIndex( r => r.member.id.toString() === session.userId) >= 0
 
 								){ %>
 					Your request is pending!

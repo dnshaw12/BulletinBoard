@@ -13,7 +13,7 @@ router.get('/create', checkAuth, async (req, res, next) => {
 	if (req.session.logged) {
 		try {
 
-			const now = new Date().toString()
+			const now = new Date().toISOString().substr(0,19)
 			const currentMember = await Member.findOne({_id: req.session.userId})
 			const memberships = await Membership.find({member: req.session.userId, admin: true}).populate('group')
 			const groups = memberships.map( m => m.group )
@@ -136,6 +136,8 @@ router.get('/:id', async (req, res, next) => {
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
 		const attendees = await Attendance.find({event: req.params.id}).populate('member');
+
+		console.log(event.requests, req.session.userId);
 
 		// console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
 		// console.log(req.session.userId);
@@ -296,16 +298,16 @@ router.get('/:id/edit', checkAuth, async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost')
 
-		const beginDateTime = event.beginDateTime.toISOString().substr(0,10)
+		const beginDateTime = event.beginDateTime.toISOString().substr(0,19)
 		let endDateTime
 
 		if (event.endDateTime) {
-			endDateTime = event.endDateTime.toISOString().substr(0,10)
+			endDateTime = event.endDateTime.toISOString().substr(0,19)
 		} else {
 			endDateTime = null
 		}
 
-		console.log(event,"event to update!");
+		console.log(beginDateTime, 'beginDateTime',event.beginDateTime);
 
 		res.render('events/edit.ejs', {
 			event: event,
