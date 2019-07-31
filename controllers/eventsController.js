@@ -1,5 +1,7 @@
 const express = require('express');
 const router  = express.Router();
+const multer = require('multer')
+const Group  = require('../models/group');
 const Member  = require('../models/member');
 const Event  = require('../models/event');
 const Attendance  = require('../models/attendance');
@@ -7,6 +9,8 @@ const Membership  = require('../models/membership');
 const Request  = require('../models/request');
 const checkAuth = require('../lib/requireAuth')
 const bcrypt  = require('bcryptjs');
+const fs = require('fs')
+const upload = multer({dest: 'uploads/'})
 
 router.get('/create', checkAuth, async (req, res, next) => {
 
@@ -42,7 +46,11 @@ router.get('/create', checkAuth, async (req, res, next) => {
 
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('profilePic'), async (req, res, next) => {
+	// console.log("\n here is req.body");
+	// console.log(req.body);
+	// console.log("\n here is req.file");
+	// console.log(req.file);
 
 	req.body.location = {}
 
@@ -53,12 +61,13 @@ router.post('/', async (req, res, next) => {
 	req.body.location.zip = req.body.zip
 	req.body.requests = []
 
-	// console.log("\n here is req.body");
-	// console.log(req.body);
+	console.log("\n here is req.body");
+	console.log(req.body);
 
 	try {
 		const memberHost = await Member.findOne({ _id: req.body.host })
 
+		console.log(req.file, "event req file 2");
 
 		if (memberHost) {
 			// console.log(memberHost,'memberHost');
@@ -89,6 +98,16 @@ router.post('/', async (req, res, next) => {
 
 		const newEvent = await Event.create(req.body);
 
+		if (req.file) {	
+			const filePath = './uploads/' + req.file.filename
+			newEvent.profilePic.data = fs.readFileSync(filePath)
+			newEvent.profilePic.contentType = req.file.mimetype
+
+			fs.unlinkSync(filePath)
+		}
+
+		await newEvent.save()
+
 		const attendance = await Attendance.create({
 		 	member: req.session.userId,
 		 	event: newEvent._id
@@ -114,7 +133,7 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost').populate('requests.member')
 
-		// console.log(event, '========EVENT');
+		console.log(event, '========EVENT');
 
 		let host
 
@@ -131,7 +150,7 @@ router.get('/:id', async (req, res, next) => {
 			host = false
 		}
 
-		console.log(DateFormat.format.date(event.beginDateTime));
+		// console.log(DateFormat.format.date(event.beginDateTime));
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
@@ -139,10 +158,10 @@ router.get('/:id', async (req, res, next) => {
 
 		// console.log(event.requests, req.session.userId);
 
-		console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
-		console.log(req.session.userId);
+		// console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
+		// console.log(req.session.userId);
 
-		console.log(attendees);
+		// console.log(attendees);
 
 		// console.log(attendance,'attendance');
 
@@ -333,7 +352,7 @@ router.put('/:id', async (req, res, next) => {
 
 	try {
 
-		console.log(req.body.host, 'HOST');
+		// console.log(req.body.host, 'HOST');
 
 		// const memberHost = await Member.findOne({ _id: req.body.host })
 
@@ -392,6 +411,26 @@ router.delete('/:id', async (req, res, next) => {
 
 		res.redirect('/members/'+req.session.userId+'/events')
 		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.get('/profilePic/:id', async (req, res, next) => {
+	try {
+
+
+		// console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
+		const event = await Event.findById(req.params.id);
+
+		// console.log(group);
+
+		res.set('Content-Type', event.profilePic.contentType)
+
+		res.send(event.profilePic.data)
+
+
+
 	} catch(err){
 	  next(err);
 	}

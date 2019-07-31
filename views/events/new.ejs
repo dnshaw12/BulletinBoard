@@ -9,7 +9,7 @@
 
 		<div class="page-content">
 
-			<form action="/events" method="POST">
+			<form action="/events" method="POST" enctype="multipart/form-data">
 				Name: <input type="text" name="name"><br/>
 				Host: 
 					<select name="host">
@@ -22,6 +22,7 @@
 						<% }) %>
 
 					</select><br/>
+				Event Picture: <input type="file" name="profilePic"><br/>
 				Date & Time: <input type="datetime-local" name="beginDateTime" value="<%=now%>"><br/>
 				End Time: <input type="datetime-local" name="endDateTime"><br/>
 				<h3>Address</h3>

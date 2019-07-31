@@ -58,10 +58,10 @@ router.get('/create', checkAuth, (req, res, next) => {
 })
 
 router.post('/', upload.single('profilePic'), async (req, res, next) => {
-	// console.log("\n here is req.body");
-	// console.log(req.body);
-	// console.log("\n here is req.file");
-	// console.log(req.file);
+	console.log("\n here is req.body");
+	console.log(req.body);
+	console.log("\n here is req.file");
+	console.log(req.file);
 	
 	try {
 
@@ -120,7 +120,7 @@ router.get('/:id', async (req, res, next) => {
 			$nin: memberIds
 		}})
 
-		console.log(adminMember, 'adminMember');
+		// console.log(adminMember, 'adminMember');
 
 		let admin
 
@@ -130,7 +130,7 @@ router.get('/:id', async (req, res, next) => {
 			admin = true
 		}
 
-		console.log(admin, 'admin');
+		// console.log(admin, 'admin');
 
 
 		res.render('groups/show.ejs',{
@@ -387,7 +387,7 @@ router.get('/profilePic/:id', async (req, res, next) => {
 		// console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
 		const group = await Group.findById(req.params.id);
 
-		console.log(group);
+		// console.log(group);
 
 		res.set('Content-Type', group.profilePic.contentType)
 

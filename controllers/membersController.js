@@ -59,7 +59,7 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 	  next(err);
 	}
 
-	console.log(req.body);
+	// console.log(req.body);
 })
 
 router.post('/login', async (req, res, next) => {
