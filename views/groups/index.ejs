@@ -1,21 +1,31 @@
 <% include ../partials/header.ejs %>
 
-	<h1>Group List</h1>
+	<div class="page-tag">
+		<div class="pin"></div>
+		<h1 class="title">Group List</h1>
+	</div>
+
 
 	<ul>
 		
 		<% groups.forEach( group => { %>
 
-		<li class="page"><a href="/groups/<%=group._id%>"><%=group.name%></a>
+		<li class="page">
+			<div class="page-head">
+				<div class="pin"></div>
+				<a href="/groups/<%=group._id%>"><h2 class="title"><%=group.name%></h2></a>
+			</div>
+			<div class="page-content">
+				<ol><h3><%=group.name%>'s Events</h3>
 
-			<ol><%=group.name%>'s Events
-				<% events.forEach( event => { console.log(event.groupHost, group._id);
-					if (event.groupHost == group._id.toString()) { %>
+					<% events.forEach( event => { console.log(event.groupHost, group._id);
+						if (event.groupHost == group._id.toString()) { %>
 
-					<li><a href="/events/<%=event._id%>"><%=event.name%></a></li>
+						<li><a href="/events/<%=event._id%>"><%=event.name%></a></li>
 
-				<% }}) %>
-			</ol>
+					<% }}) %>
+				</ol>
+			</div>
 		</li>
 
 		<% }) %>

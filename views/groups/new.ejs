@@ -1,13 +1,21 @@
 <% include ../partials/header.ejs%>
 
-	<h1>New Member</h1>
+	<div class="page">
+		<div class="page-header">
+			<div class="pin"></div>
+			<h1 class="title">New Member</h1>
+		</div>
+		
+		<div class="page-content">
+			<form action="/groups" method="POST">
+				Name: <input type="text" name="name"><br/>
+				Descirption: <br/><textarea name="description" row="5" col="10"></textarea><br/>
+				Private: <input type="checkbox" name="private"><br/>
+				<button>Submit</button>
+			</form>
+		</div>
+	</div>
 
-	<form action="/groups" method="POST">
-		Name: <input type="text" name="name"><br/>
-		Descirption: <br/><textarea name="description" row="5" col="10"></textarea><br/>
-		Private: <input type="checkbox" name="private"><br/>
-		<button>Submit</button>
-	</form>
 
 
 

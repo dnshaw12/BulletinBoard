@@ -2,92 +2,99 @@
 
 
 
+	<div class="page">
 
-	<% if (!host) { %>
-
-		<% if (event.memberHost) { %>
+		<div class="page-head">
+			<div class="pin"></div>
+			<h1 class="title"><%=event.name%></h1>
+		</div>
+		<div class="page-content">
 			
-			<% if (event.memberHost._id.toString() === session.userId) {%>
+			<% if (!host) { %>
+
+				<% if (event.memberHost) { %>
+					
+					<% if (event.memberHost._id.toString() === session.userId) {%>
+						<a href="/events/<%=event._id%>/edit">Edit</a>
+					<% } %>
+					
+				<% } %>
+			<% } else { %>
+
 				<a href="/events/<%=event._id%>/edit">Edit</a>
+
 			<% } %>
-			
-		<% } %>
-	<% } else { %>
-
-		<a href="/events/<%=event._id%>/edit">Edit</a>
-
-	<% } %>
 
 
+			<p>Hosted by <% if (event.memberHost !== null) {%>
+					<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
+				<% } else { %>
+					<%=event.groupHost.name%>
+				<% } %>
+			</p>
+
+			<h5>Date & Time: <%=event.beginDateTime%></h5>
+			<% if (event.endDateTime) { %>
+				<h5>End Time: <%=event.endDateTime%></h5>
+			<% } %>
+			Location: <div id="event-address">
+				<%=event.location.addr1%><br/>
+				<% if (event.location.addr2) { %>
+					<%=event.location.addr2%><br/>
+				<% } %>	
+				<%=event.location.city%>, <%=event.location.state%> <%=event.location.zip%>
+			</div><br/>
+
+			<h3>Description:</h3></br>
+			<p><%=event.description%></p>
+
+			<% if (session.logged) { %>
+
+				<% if (host) { %>
+
+						
+					<% include ../partials/attendeeRequestLists.ejs%>
 
 
-	<h1><%=event.name%></h1>
-	<p>Hosted by <% if (event.memberHost !== null) {%>
-			<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
-		<% } else { %>
-			<%=event.groupHost.name%>
-		<% } %>
-	</p>
+				<% } else if (!attendance.length && event.attendeeMax === null) { %>
 
-	<h5>Date & Time: <%=event.beginDateTime%></h5>
-	<% if (event.endDateTime) { %>
-		<h5>End Time: <%=event.endDateTime%></h5>
-	<% } %>
-	Location: <div id="event-address">
-		<%=event.location.addr1%><br/>
-		<% if (event.location.addr2) { %>
-			<%=event.location.addr2%><br/>
-		<% } %>	
-		<%=event.location.city%>, <%=event.location.state%> <%=event.location.zip%>
-	</div><br/>
+					<form action="/events/<%=event._id%>/attend" method="POST">
+					    <input type="submit" value="Attend"/>
+					</form>
 
-	<h3>Description:</h3></br>
-	<p><%=event.description%></p>
+				<% } else if (!attendance.length && 
 
-	<% if (session.logged) { %>
+								event.attendeeMax !== null &&
 
-		<% if (host) { %>
+								event.requests.findIndex( r => r.member.toString() === session.userId) === -1
 
-				
-			<% include ../partials/attendeeRequestLists.ejs%>
+								) { %>
+						<%= event.attendeeMax - attendees.length%> spot(s) left!
+						<div id="request-div"></div>
+						<form action="/events/<%=event._id%>/request">
+							<button id="request-button">Request Attendance</button>
+						</form>
 
+				<% } else if (!attendance.length && 
 
-		<% } else if (!attendance.length && event.attendeeMax === null) { %>
+								event.attendeeMax !== null &&
 
-			<form action="/events/<%=event._id%>/attend" method="POST">
-			    <input type="submit" value="Attend"/>
-			</form>
+								event.requests.findIndex( r => r.member.toString() === session.userId) >= 0
 
-		<% } else if (!attendance.length && 
+								){ %>
+					Your request is pending!
+				<% } else { %>
+					You are signed up for this event!
 
-						event.attendeeMax !== null &&
+					<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
+							<input type="hidden" name="memberId" value="<%=session.userId%>">
+							<button>Unattend</button>
+					</form>
 
-						event.requests.findIndex( r => r.member.toString() === session.userId) === -1
+				<% } %>
+			<% } %>
+		</div>
 
-						) { %>
-				<%= event.attendeeMax - attendees.length%> spot(s) left!
-				<div id="request-div"></div>
-				<form action="/events/<%=event._id%>/request">
-					<button id="request-button">Request Attendance</button>
-				</form>
-
-		<% } else if (!attendance.length && 
-
-						event.attendeeMax !== null &&
-
-						event.requests.findIndex( r => r.member.toString() === session.userId) >= 0
-
-						){ %>
-			Your request is pending!
-		<% } else { %>
-			You are signed up for this event!
-
-			<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
-					<input type="hidden" name="memberId" value="<%=session.userId%>">
-					<button>Unattend</button>
-			</form>
-
-		<% } %>
-	<% } %>
+	</div>
 	
 <% include ../partials/footer.ejs%>

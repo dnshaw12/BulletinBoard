@@ -1,35 +1,44 @@
 <% include ../partials/header.ejs%>
 
-	<h1>Create New Event</h1>
+	<div class="page">
+		<div class="page-head">
+			<div class="pin"></div>
 
-	<form action="/events" method="POST">
-		Name: <input type="text" name="name"><br/>
-		Host: 
-			<select name="host">
-				<option value="<%=member._id%>"><%=member.firstName+" "+member.lastName%></option>
+			<h1 class="title">Create New Event</h1>
+		</div>
 
-				<% groups.forEach( group => {%>
+		<div class="page-content">
 
-					<option value="<%=group._id%>"><%=group.name%></option>	
+			<form action="/events" method="POST">
+				Name: <input type="text" name="name"><br/>
+				Host: 
+					<select name="host">
+						<option value="<%=member._id%>"><%=member.firstName+" "+member.lastName%></option>
 
-				<% }) %>
+						<% groups.forEach( group => {%>
 
-			</select><br/>
-		Date & Time: <input type="datetime-local" name="beginDateTime"><br/>
-		End Time: <input type="datetime-local" name="endDateTime"><br/>
-		<h3>Address</h3>
-		Address 1: <input type="text" name="addr1"><br/>
-		Address 2: <input type="text" name="addr2"><br/>
-		City: <input type="text" name="city"><br/>
-		State: <input type="text" name="state"><br/>
-		Zip Code: <input type="text" name="zip"><br/>
-		Event Picture: <!-- // FILE --><br/>
-		Description: <br/><textarea name="description" row="10" col="30"></textarea><br/>
-		Members Only: <input type="checkbox" name="membersOnly"><br/> <!-- if an org -->
-		Maximum Atendees (optional): <input type="number" name="attendeeMax"><br/>
-		21+: <input type="checkbox" name="hasAlcohol"><br/>
-		<button>Submit</button>
-		<button type="reset">Reset</button>
-	</form>
+							<option value="<%=group._id%>"><%=group.name%></option>	
+
+						<% }) %>
+
+					</select><br/>
+				Date & Time: <input type="datetime-local" name="beginDateTime" value="now"><br/>
+				End Time: <input type="datetime-local" name="endDateTime"><br/>
+				<h3>Address</h3>
+				Address 1: <input type="text" name="addr1"><br/>
+				Address 2: <input type="text" name="addr2"><br/>
+				City: <input type="text" name="city"><br/>
+				State: <input type="text" name="state"><br/>
+				Zip Code: <input type="text" name="zip"><br/>
+				Event Picture: <!-- // FILE --><br/>
+				Description: <br/><textarea name="description" row="10" col="30"></textarea><br/>
+				Members Only: <input type="checkbox" name="membersOnly"><br/> <!-- if an org -->
+				Maximum Atendees (optional): <input type="number" name="attendeeMax"><br/>
+				21+: <input type="checkbox" name="hasAlcohol"><br/>
+				<button>Submit</button>
+				<button type="reset">Reset</button>
+			</form>
+		</div>
+	</div>
 
 <% include ../partials/footer.ejs%>

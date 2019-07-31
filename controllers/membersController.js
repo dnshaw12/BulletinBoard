@@ -82,8 +82,18 @@ router.get('/:id/edit', async (req, res, next) => {
 	try {
 		const member = await Member.findById(req.params.id)
 
+		let birthday;
+
+		if (member.birthday) {
+			birthday = member.birthday.toISOString().substr(0,10)
+		} else {
+			birthday = null
+		}
+
+
 
 		res.render('members/edit.ejs',{
+			birthday:birthday,
 			member: member,
 			session: req.session
 		})
@@ -97,6 +107,34 @@ router.get('/new', (req, res, next) => {
 	res.render('members/new.ejs',{
 		session: req.session
 		})
+})
+
+router.put('/:id', async (req, res, next) => {
+	console.log(req.body);
+	req.body.location = {}
+
+	req.body.location.addr1 = req.body.addr1
+	req.body.location.addr2 = req.body.addr2
+	req.body.location.city = req.body.city
+	req.body.location.state = req.body.state
+	req.body.location.zip = req.body.zip
+
+
+	try {
+		const updatedMember = await Member.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+		// await updatedMember.save()
+
+      	req.session.firstName = updatedMember.firstName;
+      	req.session.message = `Your information has been updated, ${updatedMember.firstName}!`;
+
+      	console.log(updatedMember,'updatedMember!!!!');
+
+      	res.redirect('/')
+	} catch(err){
+	  next(err);
+	}
+
 })
 
 

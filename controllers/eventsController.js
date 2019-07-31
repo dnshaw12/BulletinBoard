@@ -12,6 +12,7 @@ router.get('/create', async (req, res, next) => {
 	if (req.session.logged) {
 		try {
 
+			const now = new Date()//.toISOString().substr(0,10)
 			const currentMember = await Member.findOne({_id: req.session.userId})
 			const memberships = await Membership.find({member: req.session.userId, admin: true}).populate('group')
 			const groups = memberships.map( m => m.group )
@@ -22,6 +23,7 @@ router.get('/create', async (req, res, next) => {
 			res.render('events/new.ejs', {
 				member: currentMember,
 				groups: groups,
+				now: now,
 				session: req.session
 			})
 		} catch(err){
@@ -123,6 +125,8 @@ router.get('/:id', async (req, res, next) => {
 		} else {
 			host = false
 		}
+
+		// console.log(DateFormat.format.date(event.beginDateTime));
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 

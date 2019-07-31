@@ -1,11 +1,18 @@
 <% include ../partials/header.ejs%>
 
 
-	<h1><%=event.name%></h1>
-	<h2>Leave a message for the host!</h2>
-	<form action="/events/<%=event._id%>/request" method="POST">
-		<textarea name="message"></textarea>
-		<button>Submit Request</button>
-	</form>
+	<div class="page">
+		<div class="page-head">
+			<div class="pin"></div>
+			<h1 class="title"><%=event.name%></h1>
+		</div>
+		<div class="page-content">
+			<h2>Leave a message for the host!</h2>
+			<form action="/events/<%=event._id%>/request" method="POST">
+				<textarea name="message"></textarea><br>
+				<button>Submit Request</button>
+			</form>
+		</div>
+	</div>
 
 <% include ../partials/footer.ejs%>

@@ -1,7 +1,7 @@
 body {
 	background-image: url("images/cork.jpg");
 	margin: 0px;
-	font-family: 'Covered By Your Grace', cursive;
+	font-family: 'Bad Script', cursive;
 }
 
 header, footer {
@@ -13,6 +13,7 @@ nav {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-evenly;
+	font-size: 23px;
 }
 
 .header-link {
@@ -46,8 +47,9 @@ header > div {
 
 footer {
 	text-align: center;
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
+	left: 0px;
 	width: 100%;
 	margin: 0px;
 }
@@ -57,11 +59,6 @@ footer {
 	flex-direction: column;
 	justify-content: center;
 	color: white;
-}
-
-#event-info {
-	background-color: rgb(241, 241, 212);
-	margin-top: 10px;
 }
 
 #title {
@@ -79,14 +76,32 @@ footer {
 	font-family: 'Pacifico', cursive;
 }
 
+.page:last-child {
+	margin-bottom: 10%;
+}
+
 .page {
 	background-color: rgb(241, 241, 212);
 	margin: 5%;
 	padding: 15px;
 	padding: 0px;
-	box-shadow: 5px 10px rgba(105,105,105,0.8);
+	box-shadow: 10px 10px rgba(105,105,105,0.8);
 	border: 2px solid rgb(171,163,135);
 }
+
+.page-tag {
+	background-color: rgb(241, 241, 212);
+	margin: 5%;
+	padding: 0px 15px 15px 0px;
+	box-shadow: 10px 10px rgba(105,105,105,0.8);
+	border: 2px solid rgb(171,163,135);
+	width: 25%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+
 
 .pin {
 	background-image: url("/css/images/pin.png");
@@ -94,7 +109,6 @@ footer {
 	background-repeat: no-repeat;
 	width: 50px;
 	height: 50px;
-	z-index: 5;
 	display: inline-block;
 
 }
@@ -118,4 +132,11 @@ footer {
 	margin: 20px;
 	margin-top: 0px;
 	font-size: 20px;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+}
+
+.host {
+	font-size: 15px;
 }

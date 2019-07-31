@@ -1,11 +1,19 @@
 <% include ../partials/header.ejs%>
 
+	<div class="page">
+		<div class="page-head">
+			<div class="pin"></div>
+			<h1 class="title"><%=group.name%></h1>
+		</div>
+		<div class="page-content">
+			<h2>Leave a message for the group admin!</h2>
+			<form action="/Groups/<%=group._id%>/request" method="POST">
+				<textarea name="message"></textarea>
+				<button>Submit Request</button>
+			</form>
+		</div>
 
-	<h1><%=group.name%></h1>
-	<h2>Leave a message for the group admin!</h2>
-	<form action="/Groups/<%=group._id%>/request" method="POST">
-		<textarea name="message"></textarea>
-		<button>Submit Request</button>
-	</form>
+
+	</div>
 
 <% include ../partials/footer.ejs%>

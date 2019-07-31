@@ -2,50 +2,56 @@
 
 	<div class="page">
 
-		<h1><%=group.name%></h1>
+		<div class="page-head">
+			<div class="pin"></div>
+			<h1 class="title"><%=group.name%></h1>
+		</div>
 
-		<% if (admin) { %>
+		<div class="page-content">
 			
-			<a href="/groups/<%=group._id%>/edit">Edit Group</a>
-			
-		<% } %>
-
-		<p><%=group.description%></p>
-
-		<h2><%=group.name%>'s Upcoming Events!</h2>
-
-		<% if (session.logged) { %>
-
 			<% if (admin) { %>
+				
+				<a href="/groups/<%=group._id%>/edit">Edit Group</a>
+				
+			<% } %>
 
-					
-				<% include ../partials/membershipRequestLists.ejs%>
+			<p><%=group.description%></p>
 
-			<% } else if (!membership.length && 
+			<h2><%=group.name%>'s Upcoming Events!</h2>
 
-							group.requests.findIndex( r => r.member._id.toString() === session.userId) === -1
+			<% if (session.logged) { %>
 
-							) { %>
-					<div id="request-div"></div>
-					<form action="/groups/<%=group._id%>/request">
-						<button id="request-button">Request Membership</button>
+				<% if (admin) { %>
+
+						
+					<% include ../partials/membershipRequestLists.ejs%>
+
+				<% } else if (!membership.length && 
+
+								group.requests.findIndex( r => r.member._id.toString() === session.userId) === -1
+
+								) { %>
+						<div id="request-div"></div>
+						<form action="/groups/<%=group._id%>/request">
+							<button id="request-button">Request Membership</button>
+						</form>
+
+				<% } else if (!membership.length && 
+
+								group.requests.findIndex( r => r.member._id.toString() === session.userId) >= 0
+
+								){  %>
+					Your request is pending!
+				<% } else { %>
+
+					<form action="/groups/<%=group._id%>/remove?_method=DELETE" method="POST">
+							<input type="hidden" name="memberId" value="<%=session.userId%>">
+							<button>Leave Group</button>
 					</form>
 
-			<% } else if (!membership.length && 
-
-							group.requests.findIndex( r => r.member._id.toString() === session.userId) >= 0
-
-							){  %>
-				Your request is pending!
-			<% } else { %>
-
-				<form action="/groups/<%=group._id%>/remove?_method=DELETE" method="POST">
-						<input type="hidden" name="memberId" value="<%=session.userId%>">
-						<button>Leave Group</button>
-				</form>
-
+				<% } %>
 			<% } %>
-		<% } %>
+		</div>
 	</div>
 
 	

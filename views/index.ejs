@@ -1,28 +1,32 @@
 <% include ./partials/header.ejs %>
 
-	<div class="page">
 		
 		<% events.forEach( event => {%>
-			<a href="/events/<%=event._id%>">
-				<div id="event-info">
-					<%=event.name%>
-					<%=event.description%>
-					<% if (event.memberHost) { %>
+	<div class="page">
+
+			<div class=page-head>
+				<div class="pin"></div>
+				<a href="/events/<%=event._id%>"><h3 class="title"><%=event.name%></h3></a>
+			</div>
+			<div class="page-content">
+				<div class="host">
+					Hosted by 
+					<% if (event.memberHost) { console.log(event.memberHost);%>
 						
-						<%=event.memberHost.name%>
+						<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
 
 					<% } else { %>
 
 						<%=event.groupHost.name%>
 						
-					<% } %>
-					
+					<% } %>		
 				</div>
-			</a>
+				<p><%=event.description%></p>
+			</div>
 
+	</div>
 		<% }) %>
 
 
-	</div>
 
 <% include ./partials/footer.ejs %>
