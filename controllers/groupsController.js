@@ -301,6 +301,27 @@ router.put('/:id', async (req, res, next) => {
 	}
 })
 
+router.delete('/:id', async (req, res, next) => {
+
+	try {
+
+		const deletedGroup = await Group.deleteOne({_id: req.params.id})
+		const deletedMembership = await Membership.deleteMany({group: req.params.id})
+		const eventsToDelete = await Event.find({groupHost: req.params.id})
+
+		eventsToDelete.forEach( async e => {
+			await Attendance.deleteMany({event: e._id})
+		})
+
+		const deletedEvents = await Event.deleteMany({groupHost: req.params.id})
+
+		res.redirect('/members/'+req.session.userId+'/groups')
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
 
 
 module.exports = router;
