@@ -65,15 +65,15 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 	
 	try {
 
-		console.log(req.body, "req.boday");
+		// console.log(req.body, "req.boday");
 		
 		if (req.body.private === 'on') {
 			req.body.private = true
 		} else {
 			req.body.private = false
 		}
-		console.log("\n, req file");
-		console.log(req.file);
+		// console.log("\n, req file");
+		// console.log(req.file);
 
 		req.body.creator = req.session.userId;
 
@@ -87,12 +87,14 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 			fs.unlinkSync(filePath)
 		}
 
+		await createdGroup.save()
+
 		const newMembership = await Membership.create({member: req.session.userId, group: createdGroup._id, admin: true})
 
 		// console.log(createdGroup, 'new group');
 		// console.log(newMembership, 'newMembership');
 
-		res.redirect('/groups')
+		res.redirect('/groups/'+createdGroup._id)
 
 	} catch(err){
 	  next(err);
@@ -381,12 +383,17 @@ router.post('/:id/addAdmin', async (req, res, next) => {
 router.get('/profilePic/:id', async (req, res, next) => {
 	try {
 
+
+		// console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
 		const group = await Group.findById(req.params.id);
 
+		console.log(group);
 
 		res.set('Content-Type', group.profilePic.contentType)
 
 		res.send(group.profilePic.data)
+
+
 
 	} catch(err){
 	  next(err);

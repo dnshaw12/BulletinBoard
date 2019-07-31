@@ -254,16 +254,9 @@ router.get('/profilePic/:id', async (req, res, next) => {
 
 		// console.log(member);
 
-		
+		res.set('Content-Type', member.profilePic.contentType)
 
-		if (member.profilePic) {
-			res.set('Content-Type', member.profilePic.contentType)
-
-			res.send(member.profilePic.data)
-
-		} else {
-			res.send('css/images/pin.png')
-		}
+		res.send(member.profilePic.data)
 
 
 
