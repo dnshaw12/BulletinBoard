@@ -8,11 +8,12 @@
 		</div>
 		
 		<div class="page-content">
-			<form action="/members" method="POST">
+			<form action="/members" method="POST" enctype="multipart/form-data">
 				First Name: <input type="text" name="firstName"><br/>
 				Last Name: <input type="text" name="lastName"><br/>
 				Email: <input type="email" name="email"><br/>
 				Password: <input type="password" name="password"><br/>
+				Profile Picture: <input type="file" name="profilePic">
 				Birthdday: <input type="date" name="birthday">
 				<h3>Address</h3>
 				Address 1: <input type="text" name="addr1"><br/>

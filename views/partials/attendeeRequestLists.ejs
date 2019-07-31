@@ -6,7 +6,9 @@
 						<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
 							<li>
 								<input type="hidden" name="memberId" value="<%=attendee.member._id%>">
-								<%=attendee.member.firstName + " " + attendee.member.lastName%>
+								<a href="/members/<%=attendee.member._id%>">
+									<%=attendee.member.firstName + " " + attendee.member.lastName%>
+								</a>
 								<% if (attendee.member._id.toString() === session.userId) { %>
 									(me)
 								<% } else { %>
@@ -23,7 +25,9 @@
 				<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">
 					<li>
 						<input type="hidden" name="memberId" value="<%=r.member._id%>">
-						<%=r.member.firstName + " " + r.member.lastName%>
+						<a href="/members/<%=r.member._id%>">
+							<%=r.member.firstName + " " + r.member.lastName%>
+						</a>
 						<p><%=r.message%></p>
 						<button formaction="/events/<%=event._id%>/accept">Accept</button>
 						<button>Reject</button>

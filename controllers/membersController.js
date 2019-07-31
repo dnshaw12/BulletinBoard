@@ -1,13 +1,16 @@
 const express = require('express');
 const router  = express.Router();
+const multer = require('multer')
 const Member  = require('../models/member');
 const Event  = require('../models/event');
 const Membership  = require('../models/membership');
 const Attendance  = require('../models/attendance');
 const checkAuth = require('../lib/requireAuth')
 const bcrypt  = require('bcryptjs');
+const fs = require('fs')
+const upload = multer({dest: 'uploads/'})
 
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('profilePic'), async (req, res, next) => {
 	console.log(req.body);
 	req.body.location = {}
 
@@ -20,8 +23,30 @@ router.post('/', async (req, res, next) => {
 	req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
 
 	try {
+
+		console.log(req.file, "BODY PROFILE PIC");
+
+
+
+		console.log(req.body,"look for profile pic");
+		// console.log(req.file.filename, "FILE NAME");
+
 		const newMember = await Member.create(req.body)
 		console.log(newMember, 'newMember');
+
+		if (req.file) {	
+			req.session.hasPic = true
+			const filePath = './uploads/' + req.file.filename
+			newMember.profilePic.data = fs.readFileSync(filePath)
+			newMember.profilePic.contentType = req.file.mimetype
+
+			fs.unlinkSync(filePath)
+		}
+
+
+		console.log(newMember, 'NEWMEMBER');
+
+		await newMember.save()
 
 		req.session.userId = newMember._id;
       	req.session.firstName = newMember.firstName;
@@ -50,6 +75,14 @@ router.post('/login', async (req, res, next) => {
 		      	req.session.firstName = foundMember.firstName;
 		      	req.session.message = `Welcome back, ${foundMember.firstName}!`;
 		      	req.session.logged = true;
+
+		      	console.log(foundMember.profilePic.data, "PROFILE PIC CHECK");
+
+		      	if (foundMember.profilePic.data) {
+		      		req.session.hasPic = true
+			  	} else {
+			  		req.session.hasPic = false
+			  	}
 
 		      	res.redirect('/');
 
@@ -131,7 +164,7 @@ router.put('/:id', async (req, res, next) => {
 
       	console.log(updatedMember,'updatedMember!!!!');
 
-      	res.redirect('/')
+      	res.redirect('/members/'+req.params.id)
 	} catch(err){
 	  next(err);
 	}
@@ -183,6 +216,60 @@ router.get('/:id/events', checkAuth, async (req, res, next) => {
 	  next(err);
 	}
 
+})
+
+router.get('/:id', async (req, res, next) => {
+
+
+	try {
+
+		const member = await Member.findById(req.params.id)
+
+		let admin
+		
+		if (req.params.id === req.session.userId) {
+			admin = true
+		} else {
+			admin = false
+		}
+
+		res.render('members/show.ejs', {
+			member: member,
+			admin: admin,
+			session: req.session
+		})
+
+
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.get('/profilePic/:id', async (req, res, next) => {
+	try {
+
+
+		console.log("profile pic route hit!!!!!!!!!!!!!++++++++========");
+		const member = await Member.findById(req.params.id);
+
+		console.log(member);
+
+		
+
+		if (member.profilePic) {
+			res.set('Content-Type', member.profilePic.contentType)
+
+			res.send(member.profilePic.data)
+
+		} else {
+			res.send('css/images/pin.png')
+		}
+
+
+
+	} catch(err){
+	  next(err);
+	}
 })
 
 

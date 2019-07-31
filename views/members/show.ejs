@@ -1,0 +1,39 @@
+<% include ../partials/header.ejs%>
+
+<div class="page">
+	
+	<% if (admin) { %>
+
+		<div class="page-head">
+			<div class="pin"></div>
+			<h2 class="title">Your Profile</h2>
+		</div>
+		
+	<% } else { %>
+
+		<div class="page-head">
+			<div class="pin"></div>
+			<h2 class="title"><%=member.firstName+" "+member.lastName%>'s Profile</h2>
+		</div>
+		
+	<% } %>
+
+	<div class="page-content">
+		<% if (admin) { %>
+			<a href="/members/<%=session.userId%>/edit">Edit Profile</a>
+		<% } %>
+
+
+		<h3>About Me</h3>
+		<p><%=member.aboutMe%></p>
+
+		<% if (hasPic) { -%>
+			
+			<img src="/members/profilePic/<%=member._id%>" class="profile-pic"/>
+		<% } -%>
+	</div>
+
+</div>
+
+	
+<% include ../partials/footer.ejs%>

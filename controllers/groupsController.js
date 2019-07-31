@@ -9,7 +9,7 @@ const Request  = require('../models/request');
 const checkAuth = require('../lib/requireAuth')
 const bcrypt  = require('bcryptjs');
 
-router.get('/', async (req, res, next) => {
+router.get('/', checkAuth, async (req, res, next) => {
 	console.log('group page');
 	try {
 

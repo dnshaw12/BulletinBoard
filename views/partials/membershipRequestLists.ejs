@@ -20,7 +20,9 @@ Add Members
 						<form action="/groups/<%=group._id%>/remove?_method=DELETE" method="POST">
 							<li>
 								<input type="hidden" name="memberId" value="<%=member.member._id%>">
-								<%=member.member.firstName + " " + member.member.lastName%>
+								<a href="/members/<%=member.member._id%>">
+									<%=member.member.firstName + " " + member.member.lastName%>
+								</a>
 								<% if (member.member._id.toString() === session.userId) { %>
 									(me) <button>Leave Group</button>
 								<% } else { %>
@@ -37,7 +39,9 @@ Add Members
 				<form action="/groups/<%=group._id%>/reject?_method=DELETE" method="POST">
 					<li>
 						<input type="hidden" name="memberId" value="<%=r.member._id%>">
-						<%=r.member.firstName + " " + r.member.lastName%>
+						<a href="/members/<%=r.member._id%>">
+							<%=r.member.firstName + " " + r.member.lastName%>
+						</a>
 						<p><%=r.message%></p>
 						<button formaction="/groups/<%=group._id%>/accept">Accept</button>
 						<button formaction="/groups/<%=group._id%>/acceptAdmin">Accept as Admin</button>

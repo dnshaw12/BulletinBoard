@@ -6,7 +6,10 @@ const groupSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	// profilePic: file
+	profilePic: {
+		data: Buffer,
+		contentType: String
+	},
 	description: {
 		type: String,
 		required: true

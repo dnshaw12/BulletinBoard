@@ -13,14 +13,21 @@
 				<a href="/"><div class="pin"></div></a>
 				<h1 action="/">BulletinBoard</h1>
 			</div>
-			<% if (session.logged){%>
+			<% if (logged){%>
+				<% if (hasPic) { -%>
+					<img src="/members/profilePic/<%=userId%>" id="profile-icon"/>
+				<% } else { -%>
+					<img src="/css/images/cork.jpg" id="profile-icon"/>
+				<% } -%>
+				
 				<div id="header-logged">
-					<h3><%=session.message%></h3>
-					<a href="/members/<%=session.userId%>/edit" class="header-link">Edit Profile</a>
+					<h3><%=message%></h3>
+					<a href="/members/<%=userId%>" class="header-link">View Profile</a>
+					<a href="/members/<%=userId%>/edit" class="header-link">Edit Profile</a>
 					<a href="/members/logout" class="header-link">Logout</a>
 				</div>
 			<% } else { %>
-				<span id="message-area"><%=session.message%></span>
+				<span id="message-area"><%=message%></span>
 				<div id="header-right">
 					<form action="/members/login" method="POST" id="login">
 						Email: <input type="email" name="email">
@@ -32,7 +39,7 @@
 			<% } %>
 		</div>
 		<nav>
-			<% if (session.logged){%>
+			<% if (logged){%>
 				<a href="/members/:id/events" class="header-link">My Events</a>
 				<a href="/members/:id/groups" class="header-link">My Groups</a>
 				<a href="/" class="header-link">Browse Events</a>

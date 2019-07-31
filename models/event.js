@@ -15,6 +15,10 @@ const eventSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Group'
 	},
+	profilePic: {
+		data: Buffer,
+		contentType: String
+	},
 	beginDateTime: {
 		type: Date,
 		required: true,

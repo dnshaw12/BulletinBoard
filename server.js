@@ -26,17 +26,30 @@ app.use(methodOverride('_method'));
 
 app.use((req, res, next) => {
 	try {
-		// if (req.local.firstName) {
-		// 	req.local.firstName = req.session.firstName;
-		// } else {
-		// 	req.local.firstName = undefined
-		// }
-		// req.local.logged = req.session.logged;
-		// if (req.session.message) {
-		// 	req.local.message = req.session.message;
-		// } else {
-		// 	req.local.message = undefined
-		// }
+		if (req.session.firstName) {
+			res.locals.firstName = req.session.firstName;
+		} else {
+			res.locals.firstName = undefined
+		}
+		res.locals.logged = req.session.logged;
+
+		if (req.session.message) {
+			res.locals.message = req.session.message;
+		} else {
+			res.locals.message = undefined
+		}
+
+		if (req.session.userId) {
+			res.locals.userId = req.session.userId;
+		} else {
+			res.locals.userId = undefined
+		}
+		console.log(req.session.userId,res.locals.userId, "LOCALS ID!!!!!!!");
+		res.locals.hasPic = req.session.hasPic ? true : false
+
+
+		console.log(res.locals, 'LOCALSSSSSSSSS');
+
 
 		next()
 	} catch(err){

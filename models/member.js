@@ -16,7 +16,10 @@ const memberSchema = new mongoose.Schema({
 		required: true
 	},
 	aboutMe: String,
-	// profilePic: File,
+	profilePic: {
+		data: Buffer,
+		contentType: String
+	},
 	signUpDate: Date,
 	location: {
 		addr1: String, 
