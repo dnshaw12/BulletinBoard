@@ -234,6 +234,11 @@ hr {
 	max-width: 25%;
 	max-height: 80%;
 	border: 2px solid rgb(13,55,13);
+	transition: 0.2s;
+}
+
+.profile-pic:hover {
+	transform: scale(1.05);
 }
 
 #profile-icon {

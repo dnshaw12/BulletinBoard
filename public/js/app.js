@@ -1,6 +1,4 @@
 $('.profile-pic').on('click', (e) => {
-	console.log("WORKING");
-	console.log(e);
 
 	const $overlay = $(`<div id="overlay" />`)
 	$overlay.css({
@@ -27,8 +25,15 @@ $('.profile-pic').on('click', (e) => {
 		'margin': 'auto',
 		'top': '4.7em',
 		'border': '10px solid rgb(13,55,13)',
-		'max-height': '75%'
+		'max-height': '75%',
+		'max-width': '75%'
 
+	})
+
+	$('body').keyup(e => {
+	    if(e.key === "Escape") {
+	        $('#overlay').remove()
+	    }
 	})
 
 	$overlay.append($img)
