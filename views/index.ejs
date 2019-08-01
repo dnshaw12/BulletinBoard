@@ -25,6 +25,10 @@
 							
 					</div>
 					<p><%=event.description%></p>
+					<% if (event.profilePic.data) { -%>
+						
+						<img src="/events/profilePic/<%=event._id%>" class="profile-pic"/>
+					<% } -%>
 				</div>
 			<% } -%>
 		<% } else { %>
@@ -42,6 +46,10 @@
 	
 					</div>
 					<p><%=event.description%></p>
+					<% if (event.profilePic.data) { -%>
+						
+						<img src="/events/profilePic/<%=event._id%>" class="profile-pic"/>
+					<% } -%>
 				</div>
 		<% } -%>
 

@@ -27,7 +27,7 @@
 		<h3>About Me</h3>
 		<p><%=member.aboutMe%></p>
 
-		<% if (hasPic) { -%>
+		<% if (member.profilePic.data) { -%>
 			
 			<img src="/members/profilePic/<%=member._id%>" class="profile-pic"/>
 		<% } -%>

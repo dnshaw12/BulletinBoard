@@ -27,6 +27,10 @@
 					<% }}) %>
 				</ol>
 			</div>
+			<% if (group.profilePic.data) { -%>
+			
+			<img src="/groups/profilePic/<%=group._id%>" class="profile-pic"/>
+		<% } -%>
 		</li>
 
 		<% }) %>

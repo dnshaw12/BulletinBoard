@@ -27,11 +27,10 @@
 				City: <input type="text" name="city" value="<%=event.location.city%>">
 				State: <input type="text" name="state" value="<%=event.location.state%>"> 
 				Zip Code: <input type="text" name="zip" value="<%=event.location.zip%>"><br/>
-				Event Picture: <!-- // FILE --><br/>
 				Description: <br/><textarea name="description" row="10" col="30"><%=event.description%></textarea><br/>
 				
 				<% if (event.groupHost) { %>
-					Members Only: <input type="checkbox" type="hidden" name="membersOnly"
+					<!-- Members Only: --> <input type="hidden" name="membersOnly"
 						<% if (event.membersOnly) {%>
 							checked ><br/>
 						<% } %>

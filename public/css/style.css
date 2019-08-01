@@ -203,6 +203,7 @@ hr {
 .inner-list {
 	font-size: 25px;
 	margin: 0px;
+	clear: both;
 }
 
 .page-content > ol {
@@ -215,12 +216,21 @@ hr {
 	display: inline-block;
 	float: left;
 	position: relative;
+	clear: both;
+}
+
+.page-content {
+	clear: both;
+	width: 73%;
+	left: 0px;
 }
 
 .profile-pic {
 	right: 10px;
 	top: 10px;
 	position: absolute;
+	float: right;
+	clear: both;
 	max-width: 25%;
 	max-height: 80%;
 	border: 2px solid rgb(13,55,13);
