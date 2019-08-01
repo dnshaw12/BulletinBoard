@@ -7,6 +7,7 @@
 			<h1 class="title">Edit Profile</h1>
 		</div>
 		<div class="page-content">
+			<a href="/members/<%=member._id%>/updatepic">Update Profile Picture</a>
 			<form action="/members/<%=member._id%>?_method=PUT" method="POST">
 				First Name: <input type="text" name="firstName" value="<%=member.firstName%>">
 				Last Name: <input type="text" name="lastName" value="<%=member.lastName%>"><br/>
@@ -23,6 +24,10 @@
 			</form>
 		</div>
 
+		<% if (hasPic) { -%>
+			
+			<img src="/members/profilePic/<%=member._id%>" class="profile-pic"/>
+		<% } -%>
 	</div>
 
 <% include ../partials/footer.ejs%>

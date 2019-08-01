@@ -224,7 +224,7 @@ router.get('/:id', async (req, res, next) => {
 	try {
 
 		const member = await Member.findById(req.params.id)
-
+		console.log(member, "MEMBERRRR");
 		let admin
 		
 		if (req.params.id === req.session.userId) {
@@ -260,6 +260,52 @@ router.get('/profilePic/:id', async (req, res, next) => {
 
 
 
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.get('/:id/updatepic', async (req, res, next) => {
+
+	try {
+
+		const member = await Member.findById(req.params.id)
+
+		res.render('members/updatePic.ejs',{
+			member: member
+		})
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.put('/:id/updatepic', upload.single('profilePic'), async (req, res, next) => {
+
+	console.log("update pic req.file", req.file);
+
+	try {
+
+		const member = await Member.findById(req.params.id)
+
+		if (req.file) {	
+			req.session.hasPic = true
+			const filePath = './uploads/' + req.file.filename
+			member.profilePic.data = fs.readFileSync(filePath)
+			member.profilePic.contentType = req.file.mimetype
+
+			fs.unlinkSync(filePath)
+
+			await member.save()
+
+			res.redirect('/members/'+req.params.id)
+
+		} else {
+			req.session.message = "No file was selected."
+
+			res.redirect('/members/'+req.params.id+'/updatepic')
+		}
+		
 	} catch(err){
 	  next(err);
 	}
