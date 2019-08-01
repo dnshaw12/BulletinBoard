@@ -27,9 +27,9 @@
 
 			<div class="host">
 				Hosted by <% if (event.memberHost !== null) {%>
-						<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
+						<a href="/members/<%=event.memberHost._id%>"><%=event.memberHost.firstName+" "+event.memberHost.lastName%></a>
 					<% } else { %>
-						<%=event.groupHost.name%>
+						<a href="/groups/<%=event.groupHost._id%>"><%=event.groupHost.name%></a>
 					<% } %>
 				
 			</div>

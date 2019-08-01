@@ -1,5 +1,17 @@
 <hr>
 
+Add Attendee
+<form action="/events/<%=event._id%>/addAttendee" method="POST">
+	<select name='member'>
+		
+		<% nonAttendees.forEach( m => {%>
+			<option value="<%=m._id%>"><%=m.firstName+" "+m.lastName%></option>
+		<% }) %>
+
+	</select><br>
+	<button>Add Attendee</button>
+</form>
+
 <p class="inner-list">ATTENDEES LIST: <%=attendees.length%></p>
 				<ol>
 					<% attendees.forEach( attendee => {%>
@@ -7,7 +19,7 @@
 							<li>
 								<input type="hidden" name="memberId" value="<%=attendee.member._id%>">
 								<a href="/members/<%=attendee.member._id%>">
-									<%=attendee.member.firstName + " " + attendee.member.lastName%>
+									<a href="/members/<%=attendee.member._id%>"><%=attendee.member.firstName+" "+attendee.member.lastName%></a>
 								</a>
 								<% if (attendee.member._id.toString() === session.userId) { %>
 									(me)
@@ -26,7 +38,7 @@
 					<li>
 						<input type="hidden" name="memberId" value="<%=r.member._id%>">
 						<a href="/members/<%=r.member._id%>">
-							<%=r.member.firstName + " " + r.member.lastName%>
+							<a href="/members/<%=r.member._id%>"><%=r.member.firstName + " " + r.member.lastName%></a>
 						</a>
 						<p><%=r.message%></p>
 						<button formaction="/events/<%=event._id%>/accept">Accept</button>

@@ -1,4 +1,4 @@
-$('h3').on('click', (e) => {
+$('.page-content').on('click', (e) => {
+	console.log("WORKING");
 	console.log(e);
-	console.log('working');
 })

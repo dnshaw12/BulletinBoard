@@ -155,6 +155,11 @@ router.get('/:id', async (req, res, next) => {
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
 		const attendees = await Attendance.find({event: req.params.id}).populate('member');
+		const memberIds = attendees.map( m => m.member._id)
+
+		const nonAttendees = await Member.find({_id: {
+			$nin: memberIds
+		}})
 
 		// console.log(event.requests, req.session.userId);
 
@@ -170,7 +175,8 @@ router.get('/:id', async (req, res, next) => {
 			host: host,
 			session: req.session,
 			attendance: attendance,
-			attendees: attendees
+			attendees: attendees,
+			nonAttendees: nonAttendees
 		})
 		
 	} catch(err){
@@ -476,6 +482,20 @@ router.put('/:id/updatepic', upload.single('profilePic'), async (req, res, next)
 			res.redirect('/events/'+req.params.id+'/updatepic')
 		}
 		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.post('/:id/addAttendee', async (req, res, next) => {
+	try {
+
+		
+		const newAttendance = await Attendance.create({member: req.body.member, event: req.params.id})
+
+		res.redirect('/events/'+req.params.id)
+
+
 	} catch(err){
 	  next(err);
 	}

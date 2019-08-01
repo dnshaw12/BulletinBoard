@@ -254,7 +254,7 @@ router.post('/:id/accept', async (req, res, next) => {
 		// console.log(rIndex);
 		group.requests.splice(rIndex,1)
 
-		group.save()
+		await group.save()
 
 		res.redirect('/groups/'+req.params.id)
 
@@ -288,7 +288,7 @@ router.post('/:id/acceptAdmin', async (req, res, next) => {
 		// console.log(rIndex);
 		group.requests.splice(rIndex,1)
 
-		group.save()
+		await group.save()
 
 		res.redirect('/groups/'+req.params.id)
 
