@@ -5,11 +5,13 @@
 		<h1 class="title">Public Events</h1>
 	</div>
 
-		
+	<ul>
 		<% events.forEach( event => {%>
 		<% if (event.groupHost) { -%>
 			
 			<% if (event.groupHost.private === false) { -%>
+
+			<li>
 				
 				<div class="page">
 
@@ -30,8 +32,12 @@
 						<img src="/events/profilePic/<%=event._id%>" class="profile-pic"/>
 					<% } -%>
 				</div>
+
+			</li>
 			<% } -%>
 		<% } else { %>
+
+		<li>
 			<div class="page">
 
 				<div class=page-head>
@@ -51,10 +57,13 @@
 						<img src="/events/profilePic/<%=event._id%>" class="profile-pic"/>
 					<% } -%>
 				</div>
+			</li>
 		<% } -%>
 
-	</div>
+			</div>
 		<% }) %>
+
+	</ul>
 
 
 

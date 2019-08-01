@@ -1,6 +1,6 @@
 <hr>
 
-Add Attendee
+<span class="tag">Add Attendee:</span>
 <form action="/events/<%=event._id%>/addAttendee" method="POST">
 	<select name='member'>
 		
@@ -12,7 +12,7 @@ Add Attendee
 	<button>Add Attendee</button>
 </form>
 
-<p class="inner-list">ATTENDEES LIST: <%=attendees.length%></p>
+<p class="inner-list"><span class="tag">Attendee List:</span> <%=attendees.length%></p>
 				<ol>
 					<% attendees.forEach( attendee => {%>
 						<form action="/events/<%=event._id%>/remove?_method=DELETE" method="POST">
@@ -31,7 +31,7 @@ Add Attendee
 					<% }) %>
 				</ol>
 
-<p class="inner-list">PENDING REQUESTS: <%=event.requests.length%></p>
+<p class="inner-list"><span class="tag">Pending Requests:</span> <%=event.requests.length%></p>
 	<ol>
 		<% event.requests.forEach( r => { %>
 				<form action="/events/<%=event._id%>/reject?_method=DELETE" method="POST">

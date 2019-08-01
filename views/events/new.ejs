@@ -10,8 +10,8 @@
 		<div class="page-content">
 
 			<form action="/events" method="POST" enctype="multipart/form-data">
-				Name: <input type="text" name="name"><br/>
-				Host: 
+				<span class="tag">Name:</span> <input type="text" name="name"><br/>
+				<span class="tag">Host:</span> 
 					<select name="host">
 						<option value="<%=member._id%>"><%=member.firstName+" "+member.lastName%></option>
 
@@ -22,19 +22,19 @@
 						<% }) %>
 
 					</select><br/>
-				Event Picture: <input type="file" name="profilePic"><br/>
-				Date & Time: <input type="datetime-local" name="beginDateTime" value="<%=now%>"><br/>
-				End Time: <input type="datetime-local" name="endDateTime"><br/>
+				<span class="tag">Event Picture:</span> <input type="file" name="profilePic"><br/>
+				<span class="tag">Date & Time:</span> <input type="datetime-local" name="beginDateTime" value="<%=now%>"><br/>
+				<span class="tag">End Time:</span> <input type="datetime-local" name="endDateTime"><br/>
 				<h3>Address</h3>
-				Address 1: <input type="text" name="addr1"><br/>
-				Address 2: <input type="text" name="addr2"><br/>
-				City: <input type="text" name="city"><br/>
-				State: <input type="text" name="state"><br/>
-				Zip Code: <input type="text" name="zip"><br/>
-				Description: <br/><textarea name="description" row="10" col="30"></textarea><br/>
+				<span class="tag">Address 1:</span> <input type="text" name="addr1"><br/>
+				<span class="tag">Address 2:</span> <input type="text" name="addr2"><br/>
+				<span class="tag">City:</span> <input type="text" name="city"><br/>
+				<span class="tag">State:</span> <input type="text" name="state"><br/>
+				<span class="tag">Zip Code:</span> <input type="text" name="zip"><br/>
+				<span class="tag">Description:</span> <br/><textarea name="description" row="10" col="30"></textarea><br/>
 				<!-- Members Only: --> <input type="hidden" name="membersOnly"><br/> <!-- if an org -->
-				Maximum Attendees (optional): <input type="number" name="attendeeMax"><br/>
-				21+: <input type="checkbox" name="hasAlcohol"><br/>
+				<span class="tag">Maximum Attendees (optional):</span> <input type="number" name="attendeeMax"><br/>
+				<span class="tag">21+:</span> <input type="checkbox" name="hasAlcohol"><br/>
 				<button>Submit</button>
 				<button type="reset">Reset</button>
 			</form>

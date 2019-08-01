@@ -10,8 +10,8 @@
 		<div class="page-content">
 			<a href="/events/<%=event._id%>/updatepic">Update Event Picture</a>
 			<form action="/events/<%=event._id%>?_method=PUT" method="POST">
-				Name: <input type="text" name="name" value="<%=event.name%>"><br/>
-				Host: <% if (event.memberHost) {%>
+				<span class="tag">Name:</span> <input type="text" name="name" value="<%=event.name%>"><br/>
+				<span class="tag">Host:</span> <% if (event.memberHost) {%>
 							<%=event.memberHost.firstName+" "+event.memberHost.lastName%>
 							<!-- <input type="hidden" name="host" value="<%event.memberHost._id%>"> -->
 						<% } else {%>
@@ -19,15 +19,15 @@
 							<!-- <input type="hidden" name="host" value="<%event.groupHost._id%>"> -->
 						<% } %><br>
 
-				Date & Time: <input type="datetime-local" name="beginDateTime" value="<%=beginDateTime%>">
-				End Time: <input type="datetime-local" name="endDateTime" value="<%=endDateTime%>">
+				<span class="tag">Date & Time:</span> <input type="datetime-local" name="beginDateTime" value="<%=beginDateTime%>">
+				<span class="tag">End Time:</span> <input type="datetime-local" name="endDateTime" value="<%=endDateTime%>">
 				<h3>Address</h3>
-				Address 1: <input type="text" name="addr1" value="<%=event.location.addr1%>">
-				Address 2: <input type="text" name="addr2" value="<%=event.location.addr2%>"><br/>
-				City: <input type="text" name="city" value="<%=event.location.city%>">
-				State: <input type="text" name="state" value="<%=event.location.state%>"> 
-				Zip Code: <input type="text" name="zip" value="<%=event.location.zip%>"><br/>
-				Description: <br/><textarea name="description" row="10" col="30"><%=event.description%></textarea><br/>
+				<span class="tag">Address 1:</span> <input type="text" name="addr1" value="<%=event.location.addr1%>">
+				<span class="tag">Address 2:</span> <input type="text" name="addr2" value="<%=event.location.addr2%>"><br/>
+				<span class="tag">City:</span> <input type="text" name="city" value="<%=event.location.city%>">
+				<span class="tag">State:</span> <input type="text" name="state" value="<%=event.location.state%>"> 
+				<span class="tag">Zip Code:</span> <input type="text" name="zip" value="<%=event.location.zip%>"><br/>
+				<span class="tag">Description:</span> <br/><textarea name="description" row="10" col="30"><%=event.description%></textarea><br/>
 				
 				<% if (event.groupHost) { %>
 					<!-- Members Only: --> <input type="hidden" name="membersOnly"
@@ -38,9 +38,9 @@
 					<input type="hidden" name="membersOnly">
 				<% } %>
 
-				Maximum Attendees (optional): <input type="number" name="attendeeMax" value="<%=event.attendeeMax%>"><br/>
+				<span class="tag">Maximum Attendees (optional):</span> <input type="number" name="attendeeMax" value="<%=event.attendeeMax%>"><br/>
 
-				21+: <input type="checkbox" name="hasAlcohol" 
+				<span class="tag">21+:</span> <input type="checkbox" name="hasAlcohol" 
 					<% if (event.hasAlcohol) {%>
 						checked
 					<% } %>

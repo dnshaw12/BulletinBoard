@@ -9,17 +9,17 @@
 		<div class="page-content">
 			<a href="/members/<%=member._id%>/updatepic">Update Profile Picture</a>
 			<form action="/members/<%=member._id%>?_method=PUT" method="POST">
-				First Name: <input type="text" name="firstName" value="<%=member.firstName%>">
-				Last Name: <input type="text" name="lastName" value="<%=member.lastName%>"><br/>
-				Email: <input type="email" name="email" value="<%=member.email%>">
-				Birthdday: <input type="date" name="birthday" value="<%=birthday%>">
+				<span class="tag">First Name:</span> <input type="text" name="firstName" value="<%=member.firstName%>">
+				<span class="tag">Last Name:</span> <input type="text" name="lastName" value="<%=member.lastName%>"><br/>
+				<span class="tag">Email:</span> <input type="email" name="email" value="<%=member.email%>">
+				<span class="tag">Birthday:</span> <input type="date" name="birthday" value="<%=birthday%>">
 				<h3>Address</h3>
-				Address 1: <input type="text" name="addr1" value="<%=member.location.addr1%>"><br/>
-				Address 2: <input type="text" name="addr2" value="<%=member.location.addr2%>"><br/>
-				City: <input type="text" name="city" value="<%=member.location.city%>">
-				State: <input type="text" name="state" value="<%=member.location.state%>">
-				Zip Code: <input type="text" name="zip" value="<%=member.location.zip%>"><br/>
-				About Me: <br/><textarea name="aboutMe" row="5" col="10"><%=member.aboutMe%></textarea><br/>
+				<span class="tag">Address 1:</span> <input type="text" name="addr1" value="<%=member.location.addr1%>"><br/>
+				<span class="tag">Address 2:</span> <input type="text" name="addr2" value="<%=member.location.addr2%>"><br/>
+				<span class="tag">City:</span> <input type="text" name="city" value="<%=member.location.city%>">
+				<span class="tag">State:</span> <input type="text" name="state" value="<%=member.location.state%>">
+				<span class="tag">Zip Code:</span> <input type="text" name="zip" value="<%=member.location.zip%>"><br/>
+				<span class="tag">About Me:</span> <br/><textarea name="aboutMe" row="5" col="10"><%=member.aboutMe%></textarea><br/>
 				<button>Submit</button>
 			</form>
 		</div>

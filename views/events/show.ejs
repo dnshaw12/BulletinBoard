@@ -35,13 +35,13 @@
 			</div>
 
 			<div class="times">
-				<h5>Date & Time: <%=beginDateTime%></h5>
+				<h5><span class="tag">Date & Time:</span> <%=beginDateTime%></h5>
 				<% if (event.endDateTime) { %>
-					<h5>End Time: <%=endDateTime%></h5>
+					<h5><span class="tag">End Time:</span> <%=endDateTime%></h5>
 				<% } %>	
 			</div>
 			<div class="location">
-				Location: <div id="event-address">
+				<span class="tag">Location:</span> <div id="event-address">
 					<%=event.location.addr1%>
 					<% if (event.location.addr2) { %>
 						, <%=event.location.addr2%><br/>
@@ -51,7 +51,7 @@
 			</div>
 
 			<div class="description">
-				<h3>Description:</h3>
+				<h3><span class="tag">Description:</span></h3>
 				<p><%=event.description%></p>
 			</div>
 

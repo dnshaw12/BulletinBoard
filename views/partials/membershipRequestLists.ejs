@@ -1,7 +1,7 @@
 
 <hr>
 
-Add Members
+<span class="tag">Add Member:</span>
 <form action="/groups/<%=group._id%>/addMember" method="POST">
 	<select name='member'>
 		
@@ -14,7 +14,7 @@ Add Members
 	<button formaction="/groups/<%=group._id%>/addAdmin">Add Member as Admin</button>
 </form>
 
-<p class="inner-list">MEMBERS LIST: <%=members.length%></p>
+<p class="inner-list"><span class="tag">Member List:</span> <%=members.length%></p>
 				<ol>
 					<% members.forEach( member => {%>
 						<form action="/groups/<%=group._id%>/remove?_method=DELETE" method="POST">
@@ -38,7 +38,7 @@ Add Members
 					<% }) %>
 				</ol>
 
-<p class="inner-list">PENDING REQUESTS: <%=group.requests.length%></p>
+<p class="inner-list"><span class="tag">Pending Requests:</span> <%=group.requests.length%></p>
 	<ol>
 		<% group.requests.forEach( r => { %>
 				<form action="/groups/<%=group._id%>/reject?_method=DELETE" method="POST">

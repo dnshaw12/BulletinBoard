@@ -22,7 +22,7 @@ $('.profile-pic').on('click', (e) => {
 			'height': '0vh',
 			'left': '50%',
 			'top': '5%',
-		},1000,() => {
+		},500,() => {
 			console.log('animate');
         	$('#overlay').remove()
 		})
@@ -47,7 +47,7 @@ $('.profile-pic').on('click', (e) => {
 				'height': '0vh',
 				'left': '50%',
 				'top': '5%',
-			},1000,() => {
+			},500,() => {
 				console.log('animate');
 	        	$('#overlay').remove()
 			})
@@ -66,7 +66,7 @@ $('.profile-pic').on('click', (e) => {
 		'height': '100vh',
 		'left': '0px',
 		'top': '0px'
-	},1000,() => {
+	},500,() => {
 		console.log('animate');
 	})
 

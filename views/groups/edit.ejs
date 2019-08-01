@@ -9,9 +9,9 @@
 		<div class="page-content">
 			<a href="/groups/<%=group._id%>/updatepic">Update Group Picture</a>
 			<form action="/groups/<%=group._id%>?_method=PUT" method="POST">
-				Name: <input type="text" name="name" value="<%=group.name%>"><br/>
-				Descirption: <br/><textarea name="description" row="5" col="10"><%=group.description%></textarea><br/>
-				Private: <input type="checkbox" name="private"
+				<span class="tag">Name:</span> <input type="text" name="name" value="<%=group.name%>"><br/>
+				<span class="tag">Description:</span> <br/><textarea name="description" row="5" col="10"><%=group.description%></textarea><br/>
+				<span class="tag">Private:</span> <input type="checkbox" name="private"
 					<% if (group.private) { %>
 						checked
 					<% } %>

@@ -182,6 +182,9 @@ ol {
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;
+	clear: both;
+	width: 70%;
+	left: 0px;
 }
 
 .host {
@@ -223,12 +226,6 @@ hr {
 	clear: both;
 }
 
-.page-content {
-	clear: both;
-	width: 73%;
-	left: 0px;
-}
-
 .profile-pic {
 	right: 10px;
 	top: 10px;
@@ -254,4 +251,8 @@ hr {
 	border-radius: 100%;
 	text-align: center;
 	margin: 5px;
+}
+
+.tag {
+	font-weight: bold;
 }
