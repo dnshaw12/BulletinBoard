@@ -57,6 +57,16 @@ app.use((req, res, next) => {
 	}
 })
 
+app.use((req, res, next) => {
+	
+
+	const dateParser = function(){
+		console.log('yoooooooo');
+	}
+
+	next()
+})
+
 app.use('/members', membersController)
 app.use('/events', eventsController)
 app.use('/groups', groupsController)

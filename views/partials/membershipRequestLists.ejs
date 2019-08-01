@@ -23,6 +23,11 @@ Add Members
 								<a href="/members/<%=member.member._id%>">
 									<%=member.member.firstName + " " + member.member.lastName%>
 								</a>
+								<% if (member.admin) { -%>
+									- Admin
+								<% } else {-%>
+									<button formaction="/groups/<%=group._id%>/makeAdmin">Make Admin</button>
+								<% } %>
 								<% if (member.member._id.toString() === session.userId) { %>
 									(me) <button>Leave Group</button>
 								<% } else { %>

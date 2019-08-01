@@ -14,6 +14,9 @@ const upload = multer({dest: 'uploads/'})
 
 router.get('/', checkAuth, async (req, res, next) => {
 	// console.log('group page');
+
+	// dateParser()
+
 	try {
 
 		const publicGroups = await Group.find({private: false})
@@ -34,7 +37,7 @@ router.get('/', checkAuth, async (req, res, next) => {
 		// console.log(privateGroups, '------ private groups');
 		const events = await Event.find({})
 
-		events.forEach(e => console.log(e.groupHost))
+		// events.forEach(e => console.log(e.groupHost))
 		// console.log(groups, "------groups");
 
 		
@@ -58,10 +61,10 @@ router.get('/create', checkAuth, (req, res, next) => {
 })
 
 router.post('/', upload.single('profilePic'), async (req, res, next) => {
-	console.log("\n here is req.body");
-	console.log(req.body);
-	console.log("\n here is req.file");
-	console.log(req.file);
+	// console.log("\n here is req.body");
+	// console.log(req.body);
+	// console.log("\n here is req.file");
+	// console.log(req.file);
 	
 	try {
 
@@ -195,6 +198,25 @@ router.delete('/:id/remove', async (req, res, next) => {
 		const removedMembership = await Membership.findOneAndDelete({member: req.body.memberId, group: req.params.id})
 
 		
+
+		res.redirect('/groups/'+req.params.id)
+
+
+	} catch(err){
+	  next(err);
+	}
+
+})
+
+router.post('/:id/makeAdmin', async (req, res, next) => {
+	// console.log(req.body, 'delete reqbody');
+
+	try {
+		const membership = await Membership.findOne({member: req.body.memberId, group: req.params.id})
+
+		membership.admin = true
+
+		await membership.save()
 
 		res.redirect('/groups/'+req.params.id)
 

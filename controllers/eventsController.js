@@ -8,6 +8,7 @@ const Attendance  = require('../models/attendance');
 const Membership  = require('../models/membership');
 const Request  = require('../models/request');
 const checkAuth = require('../lib/requireAuth')
+const datePrinter = require('../lib/datePrinter')
 const bcrypt  = require('bcryptjs');
 const fs = require('fs')
 const upload = multer({dest: 'uploads/'})
@@ -150,7 +151,13 @@ router.get('/:id', async (req, res, next) => {
 			host = false
 		}
 
-		// console.log(DateFormat.format.date(event.beginDateTime));
+		const beginDateTime = datePrinter(event.beginDateTime)
+
+		let endDateTime
+
+		if (event.endDateTime) {
+			endDateTime = datePrinter(event.endDateTime)
+		}
 
 		const attendance = await Attendance.find({member: req.session.userId, event: req.params.id})
 
@@ -176,7 +183,9 @@ router.get('/:id', async (req, res, next) => {
 			session: req.session,
 			attendance: attendance,
 			attendees: attendees,
-			nonAttendees: nonAttendees
+			nonAttendees: nonAttendees,
+			beginDateTime: beginDateTime,
+			endDateTime: endDateTime
 		})
 		
 	} catch(err){
