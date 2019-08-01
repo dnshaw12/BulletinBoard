@@ -19,7 +19,7 @@
 				<h3><%=group.name%>'s Events</h3>
 				<ol>
 
-					<% events.forEach( event => { console.log(event.groupHost, group._id);
+					<% events.forEach( event => { ;
 						if (event.groupHost == group._id.toString()) { %>
 
 						<li><a href="/events/<%=event._id%>"><%=event.name%></a></li>

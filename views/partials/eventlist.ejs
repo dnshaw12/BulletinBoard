@@ -8,11 +8,11 @@
 			<div class="page-content">
 				<div class="host">
 					Hosted by 
-					<% if (event.memberHost) { console.log(event.memberHost);%>
+					<% if (event.memberHost) { %>
 						
 						<a href="/members/<%=event.memberHost._id%>"><%=event.memberHost.firstName+" "+event.memberHost.lastName%></a>
 
-					<% } else {  console.log(event.groupHost.name);%>
+					<% } else { %>
 
 						<a href="/groups/<%=event.groupHost._id%>"><%=event.groupHost.name%></a>
 						

@@ -7,27 +7,43 @@
 
 		
 		<% events.forEach( event => {%>
+		<% if (event.groupHost) { -%>
+			
+			<% if (event.groupHost.private === false) { -%>
+				
+				<div class="page">
+
+				<div class=page-head>
+					<div class="pin"></div>
+					<a href="/events/<%=event._id%>"><h3 class="title"><%=event.name%></h3></a>
+				</div>
+				<div class="page-content">
+					<div class="host">
+						Hosted by 
+
+							<a href="/groups/<%=event.groupHost._id%>"><%=event.groupHost.name%></a>
+							
+					</div>
+					<p><%=event.description%></p>
+				</div>
+			<% } -%>
+		<% } else { %>
 			<div class="page">
 
-			<div class=page-head>
-				<div class="pin"></div>
-				<a href="/events/<%=event._id%>"><h3 class="title"><%=event.name%></h3></a>
-			</div>
-			<div class="page-content">
-				<div class="host">
-					Hosted by 
-					<% if (event.memberHost) { %>
-						
-						<a href="/members/<%=event.memberHost._id%>"><%=event.memberHost.firstName+" "+event.memberHost.lastName%></a>
-
-					<% } else { %>
-
-						<a href="/groups/<%=event.groupHost._id%>"><%=event.groupHost.name%></a>
-						
-					<% } %>		
+				<div class=page-head>
+					<div class="pin"></div>
+					<a href="/events/<%=event._id%>"><h3 class="title"><%=event.name%></h3></a>
 				</div>
-				<p><%=event.description%></p>
-			</div>
+				<div class="page-content">
+					<div class="host">
+						Hosted by 
+							
+							<a href="/members/<%=event.memberHost._id%>"><%=event.memberHost.firstName+" "+event.memberHost.lastName%></a>
+	
+					</div>
+					<p><%=event.description%></p>
+				</div>
+		<% } -%>
 
 	</div>
 		<% }) %>

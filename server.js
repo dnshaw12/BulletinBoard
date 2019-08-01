@@ -64,9 +64,9 @@ app.use('/groups', groupsController)
 app.get('/', async (req, res, next) => {
 
 	try {
-		const events = await Event.find({}).populate('groupHost').populate('memberHost')
+		const events = await Event.find({membersOnly: false}).populate('groupHost').populate('memberHost')
 
-		// console.log(events);
+		console.log(events);
 
 		if (req.session.logged) {
 			session.message = "Hi, "+req.session.firstName+"!"
