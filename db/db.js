@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb://localhost/bulletin-board';
+let connectionString;
 
+if (process.env.NODE_ENV == "production") {
+	connectionString = process.env.DB_URL
+} else {
+	connectionString = 'mongodb://localhost/bulletin-board';
+}
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true
