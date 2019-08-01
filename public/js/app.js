@@ -3,19 +3,29 @@ $('.profile-pic').on('click', (e) => {
 	const $overlay = $(`<div id="overlay" />`)
 	$overlay.css({
 		'background-color': 'rgba(13,55,13,0.5)',
-		'width': '100vw',
-		'height': '100vh',
+		'width': '0vw',
+		'height': '0vh',
 		'position': 'fixed',
 		'z-index': '10',
 		'top': '0px',
 		'display': 'flex',
 		'flex-direction': 'row',
 		'justify-content': 'flex-start',
-		'align-items': 'center'
+		'align-items': 'center',
+		'left': '50%',
+		'top': '5%',
 	})
 
 	$overlay.on('click',() => {
-		$('#overlay').remove()
+		$overlay.animate({
+			'width': '0vw',
+			'height': '0vh',
+			'left': '50%',
+			'top': '5%',
+		},1000,() => {
+			console.log('animate');
+        	$('#overlay').remove()
+		})
 	})
 
 	$img = $(`<img src="${e.currentTarget.src}"/>`)
@@ -32,11 +42,32 @@ $('.profile-pic').on('click', (e) => {
 
 	$('body').keyup(e => {
 	    if(e.key === "Escape") {
-	        $('#overlay').remove()
+	    	$overlay.animate({
+				'width': '0vw',
+				'height': '0vh',
+				'left': '50%',
+				'top': '5%',
+			},1000,() => {
+				console.log('animate');
+	        	$('#overlay').remove()
+			})
 	    }
 	})
 
-	$overlay.append($img)
 
+
+
+
+	$overlay.append($img)
 	$('body').append($overlay)
+
+	$overlay.animate({
+		'width': '100vw',
+		'height': '100vh',
+		'left': '0px',
+		'top': '0px'
+	},1000,() => {
+		console.log('animate');
+	})
+
 })

@@ -7,6 +7,8 @@ body {
 header, footer {
 	background-color: rgb(13,55,13);
 	color: white;
+	position: fixed;
+	width: 100%;
 }
 
 nav {
@@ -58,6 +60,8 @@ header {
 	display: flex;
 	flex-direction: column;
 	margin: 0px;
+	top: 0px;
+	z-index: 9;
 }
 
 header > div {
@@ -76,7 +80,6 @@ header > div {
 
 footer {
 	text-align: center;
-	position: fixed;
 	bottom: 0px;
 	left: 0px;
 	width: 100%;
