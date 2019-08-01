@@ -400,6 +400,51 @@ router.get('/profilePic/:id', async (req, res, next) => {
 	}
 })
 
+router.get('/:id/updatepic', async (req, res, next) => {
+
+	try {
+
+		const group = await Group.findById(req.params.id)
+
+		res.render('groups/updatePic.ejs',{
+			group: group
+		})
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.put('/:id/updatepic', upload.single('profilePic'), async (req, res, next) => {
+
+
+	try {
+
+		const group = await Group.findById(req.params.id)
+
+		if (req.file) {	
+			req.session.hasPic = true
+			const filePath = './uploads/' + req.file.filename
+			group.profilePic.data = fs.readFileSync(filePath)
+			group.profilePic.contentType = req.file.mimetype
+
+			fs.unlinkSync(filePath)
+
+			await group.save()
+
+			res.redirect('/groups/'+req.params.id)
+
+		} else {
+			req.session.message = "No file was selected."
+
+			res.redirect('/groups/'+req.params.id+'/updatepic')
+		}
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
 
 
 module.exports = router;

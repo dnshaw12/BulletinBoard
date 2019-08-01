@@ -7,6 +7,7 @@
 		</div>
 		
 		<div class="page-content">
+			<a href="/groups/<%=group._id%>/updatepic">Update Group Picture</a>
 			<form action="/groups/<%=group._id%>?_method=PUT" method="POST">
 				Name: <input type="text" name="name" value="<%=group.name%>"><br/>
 				Descirption: <br/><textarea name="description" row="5" col="10"><%=group.description%></textarea><br/>
@@ -19,6 +20,10 @@
 				<button formaction="/groups/<%=group._id%>?_method=DELETE" method="POST">Delete Group</button>
 			</form>
 		</div>
+		<% if (group.profilePic.data) { -%>
+			
+			<img src="/groups/profilePic/<%=group._id%>" class="profile-pic"/>
+		<% } -%>
 	</div>
 
 

@@ -8,7 +8,7 @@
 		</div>
 
 		<div class="page-content">
-
+			<a href="/events/<%=event._id%>/updatepic">Update Event Picture</a>
 			<form action="/events/<%=event._id%>?_method=PUT" method="POST">
 				Name: <input type="text" name="name" value="<%=event.name%>"><br/>
 				Host: <% if (event.memberHost) {%>
@@ -50,6 +50,10 @@
 				<button formaction="/events/<%=event._id%>?_method=DELETE" method="POST">Delete Event</button>
 			</form>
 		</div>
+		<% if (event.profilePic.data) { -%>
+			
+			<img src="/events/profilePic/<%=event._id%>" class="profile-pic"/>
+		<% } -%>
 	</div>
 
 <% include ../partials/footer.ejs%>

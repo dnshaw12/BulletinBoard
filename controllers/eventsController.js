@@ -436,6 +436,51 @@ router.get('/profilePic/:id', async (req, res, next) => {
 	}
 })
 
+router.get('/:id/updatepic', async (req, res, next) => {
+
+	try {
+
+		const event = await Event.findById(req.params.id)
+
+		res.render('events/updatePic.ejs',{
+			event: event
+		})
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
+router.put('/:id/updatepic', upload.single('profilePic'), async (req, res, next) => {
+
+
+	try {
+
+		const event = await Event.findById(req.params.id)
+
+		if (req.file) {	
+			req.session.hasPic = true
+			const filePath = './uploads/' + req.file.filename
+			event.profilePic.data = fs.readFileSync(filePath)
+			event.profilePic.contentType = req.file.mimetype
+
+			fs.unlinkSync(filePath)
+
+			await event.save()
+
+			res.redirect('/events/'+req.params.id)
+
+		} else {
+			req.session.message = "No file was selected."
+
+			res.redirect('/events/'+req.params.id+'/updatepic')
+		}
+		
+	} catch(err){
+	  next(err);
+	}
+})
+
 
 
 module.exports = router;
