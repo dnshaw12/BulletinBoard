@@ -22,13 +22,6 @@ router.get('/create', checkAuth, async (req, res, next) => {
 			const currentMember = await Member.findOne({_id: req.session.userId})
 			const memberships = await Membership.find({member: req.session.userId, admin: true}).populate('group')
 			const groups = memberships.map( m => m.group )
-
-
-			// console.log(now, "NOW");
-
-
-
-			// console.log(currentMember);
 			
 			res.render('events/new.ejs', {
 				member: currentMember,
@@ -48,10 +41,6 @@ router.get('/create', checkAuth, async (req, res, next) => {
 })
 
 router.post('/', upload.single('profilePic'), async (req, res, next) => {
-	// console.log("\n here is req.body");
-	// console.log(req.body);
-	// console.log("\n here is req.file");
-	// console.log(req.file);
 
 	req.body.location = {}
 
@@ -62,16 +51,10 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 	req.body.location.zip = req.body.zip
 	req.body.requests = []
 
-	console.log("\n here is req.body");
-	console.log(req.body);
-
 	try {
 		const memberHost = await Member.findOne({ _id: req.body.host })
 
-		console.log(req.file, "event req file 2");
-
 		if (memberHost) {
-			// console.log(memberHost,'memberHost');
 			req.body.memberHost = req.body.host
 			req.body.groupHost = null
 		} else {
@@ -95,8 +78,6 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 			req.body.attendeeMax = parseInt(req.body.attendeeMax)
 		}
 
-		// console.log(req.body);
-
 		const newEvent = await Event.create(req.body);
 
 		if (req.file) {	
@@ -114,13 +95,7 @@ router.post('/', upload.single('profilePic'), async (req, res, next) => {
 		 	event: newEvent._id
 		})
 
-		// console.log(attendance);
-
 		req.session.message = `${req.body.name} has been created!`
-
-
-		// console.log("\nwe created  this")
-		// console.log(newEvent);
 
 		res.redirect('/')
 		
@@ -134,12 +109,9 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const event = await Event.findById(req.params.id).populate('memberHost').populate('groupHost').populate('requests.member')
 
-		console.log(event, '========EVENT');
-
 		let host
 
 		if (event.groupHost !== null) {
-			// console.log('group');
 			host = await Membership.find({member: req.session.userId, group: event.groupHost._id, admin: true})
 
 			if (host.length === 0) {
@@ -167,15 +139,6 @@ router.get('/:id', async (req, res, next) => {
 		const nonAttendees = await Member.find({_id: {
 			$nin: memberIds
 		}})
-
-		// console.log(event.requests, req.session.userId);
-
-		// console.log(event.requests.findIndex( r => r.member.toString() === req.session.userId), 'event reqs');
-		// console.log(req.session.userId);
-
-		// console.log(attendees);
-
-		// console.log(attendance,'attendance');
 
 		res.render('events/show.ejs', {
 			event: event,

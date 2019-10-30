@@ -11,7 +11,7 @@ const fs = require('fs')
 const upload = multer({dest: 'uploads/'})
 
 router.post('/', upload.single('profilePic'), async (req, res, next) => {
-	// console.log(req.body);
+	console.log(req.body);
 	req.body.location = {}
 
 	req.body.location.addr1 = req.body.addr1
